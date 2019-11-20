@@ -106,10 +106,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>D:\pumpkinhead\final project\SDL2-2.0.10\include;D:\pumpkinhead\final project\SDL2_image-2.0.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:\pumpkinhead\final project\SDL2-2.0.10\lib\x64;D:\pumpkinhead\final project\SDL2_image-2.0.5\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -157,8 +160,20 @@
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Movable.cpp" />
+    <ClCompile Include="pch.cpp" />
     <ClCompile Include="Stationary.cpp" />
     <ClCompile Include="VisableObj.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="animation.h" />
+    <ClInclude Include="CollisionFunctions.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Image.h" />
+    <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="Movable.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Stationary.h" />
+    <ClInclude Include="VisableObj.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
