@@ -151,7 +151,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="animation.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="game_engine.cpp" />
+    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="Movable.cpp" />
+    <ClCompile Include="Stationary.cpp" />
+    <ClCompile Include="VisableObj.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
