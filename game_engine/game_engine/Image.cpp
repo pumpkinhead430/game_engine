@@ -30,7 +30,7 @@ bool Image::IsTransperent(int i, int j)
 {// this function checks if a pixel is transperent via alpha channel and returns true if it is and false otherwise
 	if (this->alpha->size() > 2)
 	{
-		if (this->alpha->at(i * this->width + j) == 0)
+		if (this->alpha->at((double)i * this->width + (double)j) == 0)
 			return true;
 		return false;
 	}
