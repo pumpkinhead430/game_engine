@@ -8,10 +8,10 @@ class Movable : public VisableObj
 private:
 	int speed[2];
 	int force[2];
-	int trigger;
+	vector<animation*>*animations = new vector<animation*>(0);
 	SDL_Rect *dstpos = new SDL_Rect();
 public:
-	Movable(SDL_Renderer* renderer, string path, int x, int y, int trigger);
+	Movable(SDL_Renderer* renderer, string path, int x, int y, vector<animation*> *animations);
 	bool Triggered(int input);
 	void AddTriggerForce();
 	void AddSpeed();
