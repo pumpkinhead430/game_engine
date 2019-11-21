@@ -9,10 +9,10 @@ Movable::Movable(SDL_Renderer* renderer, string path, int x, int y, int trigger)
 	this->dstpos->h = this->image_info->h;
 	this->dstpos->w = this->image_info->w;
 	this->trigger = trigger;
-	this->speed[0] = 0;
-	this->force[0] = 0;
-	this->speed[1] = 0;
-	this->force[1] = 0;
+	this->speed->first = 0;
+	this->force->first = 0;
+	this->speed->second = 0;
+	this->force->second = 0;
 }
 
 //--------------------------------------
@@ -25,30 +25,30 @@ bool Movable::Triggered(int input)
 
 void Movable::AddTriggerForce()
 {//
-	//this->force[0] -= 1;						//this group of functions shall be change to recive information from animations
-	this->force[1] -= 1;
+	//this->force->first -= 1;						//this group of functions shall be change to recive information from animations
+	this->force->second -= 1;
 }
 //----------------------------------------
 void Movable::AddSpeed()
 {
-	this->speed[0] += this->force[0];
-	this->speed[1] += this->force[1];
-	this->force[0] = 0;
-	this->force[1] = 0;
+	this->speed->first += this->force->first;
+	this->speed->second += this->force->second;
+	this->force->first = 0;
+	this->force->second = 0;
 }
 
 void Movable::AddToPostion()
 {
 	if (this->id == 1)
-		this->SetDst(this->dstpos->y + this->speed[0] + 1, this->dstpos->x + this->speed[1] );
+		this->SetDst(this->dstpos->y + this->speed->first + 1, this->dstpos->x + this->speed->second);
 	else
-		this->SetDst(this->dstpos->y + this->speed[0], this->dstpos->x + this->speed[1]);
+		this->SetDst(this->dstpos->y + this->speed->first, this->dstpos->x + this->speed->second);
 }
 
 void Movable::SetSpeed(int ySpeed, int xSpeed)
 {
-	this->speed[0] = ySpeed;
-	this->speed[1] = xSpeed;
+	this->speed->first = ySpeed;
+	this->speed->second = xSpeed;
 }
 void Movable::SetDst(int y, int x) 
 {
@@ -57,13 +57,12 @@ void Movable::SetDst(int y, int x)
 }
 void Movable::SetForce(int forcey, int forcex)
 {
-	this->force[0] = forcey;
-	this->force[1] = forcex;
+	this->force->first = forcey;
+	this->force->second = forcex;
 }
 SDL_Rect* Movable::GetDst() { return this->dstpos; }
-int *Movable::GetForce() { return this->force; }
-int Movable::GetSpeedX() { return this->speed[1]; }
-int Movable::GetSpeedY() { return this->speed[0]; }
+pair<int, int>* Movable::GetForce() { return this->force; }
+pair<int, int>* Movable::GetSpeed(){ return this->speed; }
 Movable::~Movable()
 {
 }
