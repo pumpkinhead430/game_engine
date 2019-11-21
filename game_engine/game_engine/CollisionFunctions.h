@@ -86,15 +86,15 @@ void collision(vector<VisableObj*>*all_objects, vector<Movable*>* movablechars, 
 					}
 					else
 					{
-						movablechars->at(i)->SetForce(0, movablechars->at(i)->GetForce()[0]);
-						movablechars->at(i)->SetSpeed(0, movablechars->at(i)->GetSpeedX());
+						movablechars->at(i)->SetForce(0, movablechars->at(i)->GetForce()->first);
+						movablechars->at(i)->SetSpeed(0, movablechars->at(i)->GetSpeed()->second);
 						movablechars->at(i)->SetDst(movablechars->at(i)->GetInfo()->y, temp_x);
 					}		
 				}
 				else
 				{
-					movablechars->at(i)->SetForce(movablechars->at(i)->GetForce()[1], 0);
-					movablechars->at(i)->SetSpeed(movablechars->at(i)->GetSpeedY(), 0);
+					movablechars->at(i)->SetForce(movablechars->at(i)->GetForce()->second, 0);
+					movablechars->at(i)->SetSpeed(movablechars->at(i)->GetSpeed()->first, 0);
 					movablechars->at(i)->SetDst(temp_y, movablechars->at(i)->GetInfo()->x);
 				}
 
