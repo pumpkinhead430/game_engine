@@ -6,8 +6,8 @@ class Movable : public VisableObj
 {
 
 private:
-	int speed[2];
-	int force[2];
+	pair<int, int>* speed = new pair<int, int>(0, 0);
+	pair<int, int>* force = new pair<int, int>(0, 0);
 	vector<animation*>*animations = new vector<animation*>(0);
 	SDL_Rect *dstpos = new SDL_Rect();
 public:
@@ -18,12 +18,10 @@ public:
 	void AddToPostion();
 	void SetSpeed(int ySpeed, int xSpeed);
 	void SetDst(int y, int x);
-	int *GetForce();
+	pair<int, int>* GetForce();
 	void SetForce(int forcey, int forcex);
-	int GetSpeedX();
-	int GetSpeedY();
+	pair<int, int>* GetSpeed();
 	SDL_Rect * GetDst();
 	~Movable();
-	//there
 };
 

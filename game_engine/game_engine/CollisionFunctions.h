@@ -99,7 +99,6 @@ void collision(vector<VisableObj*>*all_objects, vector<Movable*>* movablechars, 
 				}
 
 			}
-			//problem
 
 		}
 	}
