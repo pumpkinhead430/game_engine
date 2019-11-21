@@ -23,5 +23,6 @@ public:
 	pair<int, int>*GetSpeed();
 	SDL_Rect * GetDst();
 	~Movable();
+	//there
 };
 
