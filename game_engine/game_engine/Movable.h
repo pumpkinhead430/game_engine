@@ -24,5 +24,6 @@ public:
 	int GetSpeedY();
 	SDL_Rect * GetDst();
 	~Movable();
+	//there
 };
 
