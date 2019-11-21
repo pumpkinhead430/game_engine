@@ -4,6 +4,7 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "VisableObj.h"
+#include "Stationary.h"
 #include "Movable.h"
 #include "InputHandler.h"
 using namespace std;
@@ -16,7 +17,7 @@ public:
 	void handleEvents(vector<Movable*> *movobj);
 	void update(vector<Movable*> *movobjs);
 	bool running();
-	void render(vector<VisableObj*>* Torender);
+	void render(vector<Movable*>* Torender, vector<Stationary*>* stationary);
 	void clean();
 	SDL_Renderer *GetRenderer();
 

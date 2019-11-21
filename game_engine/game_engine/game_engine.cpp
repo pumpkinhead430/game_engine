@@ -24,14 +24,14 @@ void SetUp()
 {
 	/* this function will start the main game loop
 	   and will prepare all of the objects ready for the game */
-	for (int i = 0; i < movablechars->size(); i++)
-	{
-		all_objects->push_back(movablechars->at(i));
-	}
-
+	
 	for (int i = 0; i < stationaryobjs->size(); i++)
 	{
 		all_objects->push_back(stationaryobjs->at(i));
+	}
+	for (int i = 0; i < movablechars->size(); i++)
+	{
+		all_objects->push_back(movablechars->at(i));
 	}
 }
 
@@ -46,8 +46,8 @@ int main(int argc, char* args[])
 	// creating game and objects of the game
 	game = new Game();
 	game->init("hello", 1000, 1000, false);
-	Movable* temp = new Movable(game->GetRenderer(), "BarrelA.bmp", -700, 700, SDL_GetScancodeFromName("w"));
-	movablechars->push_back(temp);
+	Stationary* temp = new Stationary(3, game->GetRenderer(), "BarrelA.bmp", 30, 30);
+	stationaryobjs->push_back(temp);
 	movablechars->push_back(&Movable(game->GetRenderer(), "trans_cubes.png", 700, 100, SDL_GetScancodeFromName("s")));
 	movablechars->push_back(&Movable(game->GetRenderer(), "unicorn.png", 0, 400, SDL_GetScancodeFromName("a")));
 	SetUp();
@@ -61,7 +61,7 @@ int main(int argc, char* args[])
 		game->update(movablechars);
 		collision(all_objects, movablechars, colided);
 		//prints all sides an objects has been hit 
-		game->render(all_objects);
+		game->render(movablechars, stationaryobjs);
 		frametime = SDL_GetTicks() - framestart;
 		if (frameDealy > frametime)
 		{

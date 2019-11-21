@@ -73,21 +73,19 @@ void Game::update(vector<Movable*> *movobjs)
 	}
 }
 
-void Game::render(vector<VisableObj*>*Torender)
+void Game::render(vector<Movable*>*canmove, vector<Stationary*>* stationary)
 {
 	//showing on screen all objects
 	SDL_RenderClear(renderer);
-	for (int i = 0; i < Torender->size(); i++)
+	for (int i = 0; i < canmove->size(); i++)
 	{
-		Movable* canmove = static_cast<Movable*>(Torender->at(i));
-		if(canmove)
-		{
-			SDL_RenderCopy(this->renderer, canmove->GetCurrentImage()->GetImage(), NULL, canmove->GetDst());
-			canmove->SetXPos(canmove->GetDst()->x);
-			canmove->SetYPos(canmove->GetDst()->y);
-		}
-		else
-			SDL_RenderCopy(this->renderer, Torender->at(i)->GetCurrentImage()->GetImage(), NULL, Torender->at(i)->GetInfo());
+			SDL_RenderCopy(this->renderer, canmove->at(i)->GetCurrentImage()->GetImage(), NULL, canmove->at(i)->GetDst());
+			canmove->at(i)->SetXPos(canmove->at(i)->GetDst()->x);
+			canmove->at(i)->SetYPos(canmove->at(i)->GetDst()->y);
+	}
+	for (int i = 0; i < stationary->size(); i++)
+	{
+		SDL_RenderCopy(this->renderer, stationary->at(i)->GetCurrentImage()->GetImage(), NULL, stationary->at(i)->GetInfo());
 	}
 	SDL_RenderPresent(this->renderer);
 }
