@@ -14,7 +14,7 @@ private:
 	void ActivateAnimation(animation* ani);
 public:
 	Movable(SDL_Renderer* renderer, string path, int x, int y, vector<animation*> *animations);
-	bool TriggerAnimation(int input);
+	void TriggerAnimation(int input);
 	void AddTriggerForce();
 	void AddSpeed();
 	void AddToPostion();

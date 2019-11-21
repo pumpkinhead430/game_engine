@@ -16,7 +16,7 @@ Movable::Movable(SDL_Renderer* renderer, string path, int x, int y, vector<anima
 }
 
 //--------------------------------------
-bool Movable::TriggerAnimation(int input)
+void Movable::TriggerAnimation(int input)
 {//cheking if animtaion is triggered
 	for(int i = 0; i < this->animations->size(); i++)
 	{
