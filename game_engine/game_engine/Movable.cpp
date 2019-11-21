@@ -13,6 +13,7 @@ Movable::Movable(SDL_Renderer* renderer, string path, int x, int y, int trigger)
 	this->force->first = 0;
 	this->speed->second = 0;
 	this->force->second = 0;
+	//hello
 }
 
 //--------------------------------------
