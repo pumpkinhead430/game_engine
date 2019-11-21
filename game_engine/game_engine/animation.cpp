@@ -1,12 +1,10 @@
 #include "pch.h"
 #include "animation.h"
-
-
-animation::animation()
+animation::animation(SDL_Renderer* renderer)
 {
 	this->index = 0;
 	this->trigger = -1;
-	this->frames = nullptr;
+	this->frames->push_back(new Image("assets/defult.png", renderer));
 	this->damage = 0;
 }
 
