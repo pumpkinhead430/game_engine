@@ -13,15 +13,37 @@ Movable::Movable(SDL_Renderer* renderer, string path, int x, int y, vector<anima
 	this->force->first = 0;
 	this->speed->second = 0;
 	this->force->second = 0;
-	//hello
 }
 
 //--------------------------------------
-bool Movable::Triggered(int input)
+bool Movable::TriggerAnimation(int input)
 {//cheking if animtaion is triggered
-	if (input == trigger)
-		return true;
-	return false;
+	for(int i = 0; i < this->animations->size(); i++)
+	{
+		if (this->animations->at(i)->IsTriggered(input))
+		{
+			this->ActivateAnimation(this->animations->at(i));
+		}
+	}
+}
+
+
+void Movable::ActivateAnimation(animation* ani)
+{
+	if (this->currani == this->animations->at(0))
+	{
+		this->currani = ani;
+		this->currani->SetIndex(0);
+	}
+	int forcey = ani->GetForce()->first;
+	int forcex = ani->GetForce()->second;
+	this->AddForce(forcey,forcex);
+}
+
+void Movable::AddForce(int forcey, int forcex)
+{
+	this->force->first += forcey;
+	this->force->second += forcex;
 }
 
 void Movable::AddTriggerForce()

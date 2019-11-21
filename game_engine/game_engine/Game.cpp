@@ -41,18 +41,17 @@ void Game::handleEvents(vector<Movable*> *movobj)
 		isRunning = false;
 		break;
 	case SDL_KEYDOWN:
-		KeyInput.SetState(event.key.keysym.scancode, event.key.state);
+		this->KeyInput.SetState(event.key.keysym.scancode, event.key.state);
 	case SDL_KEYUP:
-		KeyInput.SetState(event.key.keysym.scancode, event.key.state);
+		this->KeyInput.SetState(event.key.keysym.scancode, event.key.state);
 	}
-	for (int i = 0; i < KeyInput.GetKeys()->size(); i++)
+	for (int i = 0; i < this->KeyInput.GetKeys()->size(); i++)
 	{
-		if (KeyInput.GetKeys()->at(i) == SDL_PRESSED)
+		if (this->KeyInput.GetKeys()->at(i) == SDL_PRESSED)
 		{
 			for (int j = 0; j < movobj->size(); j++)
 			{
-				if (movobj->at(j)->Triggered(i))
-					movobj->at(j)->AddTriggerForce();
+				movobj->at(j)->TriggerAnimation(i);
 
 			}
 				
@@ -65,7 +64,7 @@ void Game::handleEvents(vector<Movable*> *movobj)
 
 void Game::update(vector<Movable*> *movobjs)
 {
-	// updating the objects locations and speeds
+	// updating the objects locations and speeds and animations
 	for(int i =0; i<movobjs->size(); i++)
 	{
 		movobjs->at(i)->AddSpeed();

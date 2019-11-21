@@ -13,7 +13,10 @@ private:
 public:
 	animation();
 	animation(int damage, int trigger, int forcey, int forcex, vector<Image*>* frames);
+	bool IsTriggered(int input);
 	int GetIndex();
+	pair<int, int>* GetForce();
+	void SetIndex(int index);
 	~animation();
 };
 
