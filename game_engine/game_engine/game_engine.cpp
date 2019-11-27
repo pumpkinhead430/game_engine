@@ -48,8 +48,8 @@ int main(int argc, char* args[])
 	game->init("hello", 1000, 1000, false);
 	Stationary* temp = new Stationary(3, game->GetRenderer(), "assets/BarrelA.bmp", 30, 30);
 	stationaryobjs->push_back(temp);
-	movablechars->push_back(&Movable(game->GetRenderer(), "assets/trans_cubes.png", 700, 100, nullptr));
-	movablechars->push_back(&Movable(game->GetRenderer(), "assets/unicorn.png", 0, 400, nullptr));
+	movablechars->push_back(&Movable(game->GetRenderer(), 700, 100));
+	movablechars->push_back(&Movable(game->GetRenderer(), 0, 400));
 	SetUp();
 	//
 	//starting game loop

@@ -3,7 +3,7 @@
 animation::animation(SDL_Renderer* renderer)
 {
 	this->index = 0;
-	this->trigger = -1;
+	this->trigger = 26;
 	this->frames->push_back(new Image("assets/defult.png", renderer));
 	this->damage = 0;
 }
@@ -15,6 +15,11 @@ animation::animation(int damage, int trigger,int forcey, int forcex, vector<Imag
 	this->force = &make_pair(forcey, forcex);
 	this->frames = frames;
 	this->damage = damage;
+}
+
+Image* animation::GetImage(int index)
+{
+	return this->frames->at(index);
 }
 
 bool animation::IsTriggered(int input)

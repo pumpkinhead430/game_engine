@@ -11,6 +11,16 @@ VisableObj::VisableObj(SDL_Renderer *renderer, string path, int x, int y)
 	ID++;
 }
 
+VisableObj::VisableObj(SDL_Renderer* renderer, int x, int y)
+{
+	this->image_info->x = x;
+	this->image_info->y = y;;
+	this->image_info->h = current_image->height;
+	this->image_info->w = current_image->width;
+	this->id = ID;
+	ID++;
+}
+
 Image * VisableObj::GetCurrentImage() { return this->current_image; }
 int VisableObj::GetId() { return this->id; }
 SDL_Rect* VisableObj::GetInfo() { return this->image_info; }

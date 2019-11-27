@@ -19,6 +19,7 @@ protected:
 
 public:
 	VisableObj(SDL_Renderer *renderer, string path, int x, int y);
+	VisableObj(SDL_Renderer* renderer, int x, int y);
 	void SetXPos(int pos);
 	void SetYPos(int pos);
 	int GetId();

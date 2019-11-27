@@ -2,13 +2,30 @@
 #include "Movable.h"
 
 
-Movable::Movable(SDL_Renderer* renderer, string path, int x, int y, vector<animation*>* animations) :VisableObj(renderer, path, x, y)
+Movable::Movable(SDL_Renderer* renderer, int x, int y, vector<animation*>* animations) :VisableObj(renderer, x, y)
 {//setting the trigger which will be in animations in due time and setting defult all speed and force
 	this->dstpos->x = this->image_info->x;
 	this->dstpos->y = this->image_info->y;
 	this->dstpos->h = this->image_info->h;
 	this->dstpos->w = this->image_info->w;
 	this->animations = animations;
+	this->current_image = this->animations->at(0)->GetImage(0);
+	this->currani = this->animations->at(0);
+	this->speed->first = 0;
+	this->force->first = 0;
+	this->speed->second = 0;
+	this->force->second = 0;
+}
+
+Movable::Movable(SDL_Renderer* renderer, int x, int y) :VisableObj(renderer, x, y)
+{//setting the trigger which will be in animations in due time and setting defult all speed and force
+	this->dstpos->x = this->image_info->x;
+	this->dstpos->y = this->image_info->y;
+	this->dstpos->h = this->image_info->h;
+	this->dstpos->w = this->image_info->w;
+	this->animations->push_back(new animation(renderer));
+	this->current_image = this->animations->at(0)->GetImage(0);
+	this->currani = this->animations->at(0);
 	this->speed->first = 0;
 	this->force->first = 0;
 	this->speed->second = 0;

@@ -9,11 +9,12 @@ private:
 	pair<int, int>* speed = new pair<int, int>(0, 0);
 	pair<int, int>* force = new pair<int, int>(0, 0);
 	vector<animation*>*animations = new vector<animation*>(0);
-	animation* currani = new animation();
+	animation* currani = nullptr;
 	SDL_Rect *dstpos = new SDL_Rect();
 	void ActivateAnimation(animation* ani);
 public:
-	Movable(SDL_Renderer* renderer, string path, int x, int y, vector<animation*> *animations);
+	Movable(SDL_Renderer* renderer, int x, int y, vector<animation*>* animations);
+	Movable(SDL_Renderer* renderer, int x, int y);
 	void TriggerAnimation(int input);
 	void AddTriggerForce();
 	void AddSpeed();

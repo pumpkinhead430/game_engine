@@ -15,6 +15,7 @@ private:
 public:
 	animation(SDL_Renderer* renderer);
 	animation(int damage, int trigger, int forcey, int forcex, vector<Image*>* frames);
+	Image* GetImage(int index);
 	bool IsTriggered(int input);
 	int GetIndex();
 	pair<int, int>* GetForce();
