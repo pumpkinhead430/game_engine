@@ -49,7 +49,22 @@ int main(int argc, char* args[])
 	Stationary* temp = new Stationary(3, game->GetRenderer(), "assets/BarrelA.bmp", 30, 30);
 	stationaryobjs->push_back(temp);
 
-	movablechars->push_back(&Movable(game->GetRenderer(), 700, 100));
+
+	animation* defult = new animation(game->GetRenderer());
+	vector<Image*>* frames = new vector<Image*>(0);
+	frames->push_back(new Image("assets/BarrelA.bmp", game->GetRenderer()));
+	frames->push_back(new Image("assets/trans_cubes.png", game->GetRenderer()));
+	animation *mov = new animation(3, SDL_GetScancodeFromName("w"), 0, 3, frames);
+
+	vector<Image*>* frames1 = new vector<Image*>(0);
+	frames1->push_back(new Image("assets/defult.png", game->GetRenderer()));
+	frames1->push_back(new Image("assets/line.png", game->GetRenderer()));
+	animation* mov1 = new animation(3, SDL_GetScancodeFromName("s"), 1, 0, frames1);
+	vector <animation*>* animations = new vector<animation*>(0);
+	animations->push_back(defult);
+	animations->push_back(mov);
+	animations->push_back(mov1);
+	movablechars->push_back(&Movable(game->GetRenderer(), 700, 100, animations));
 	movablechars->push_back(&Movable(game->GetRenderer(), 0, 400));
 	SetUp();
 	//

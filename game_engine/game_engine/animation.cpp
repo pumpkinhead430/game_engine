@@ -27,7 +27,7 @@ Image* animation::GetImage(int index)
 
 bool animation::EndOfAnimation()
 {
-	if(this->frames->size() == this->index)
+	if(this->frames->size() == (int)this->index + 1)
 		return true;
 	return false;
 }

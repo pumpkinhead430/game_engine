@@ -62,7 +62,9 @@ void Movable::ContinueAnimation()
 	{
 		this->currani->SetIndex(this->currani->GetIndex() + 1);
 	}
+	this->current_image = this->currani->GetImage(this->currani->GetIndex());
 }
+
 
 
 void Movable::ActivateAnimation(animation* ani)
