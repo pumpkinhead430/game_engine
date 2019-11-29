@@ -69,6 +69,7 @@ void Game::update(vector<Movable*> *movobjs)
 	{
 		movobjs->at(i)->AddSpeed();
 		movobjs->at(i)->AddToPostion();
+		movobjs->at(i)->ContinueAnimation();
 	}
 }
 

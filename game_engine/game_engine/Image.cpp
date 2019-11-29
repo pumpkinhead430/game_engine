@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "Image.h"
 
-
-
 Image::Image(string path, SDL_Renderer *renderer)
 {
 	const char *char_path = path.c_str();

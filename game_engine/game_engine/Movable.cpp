@@ -50,6 +50,21 @@ void Movable::TriggerAnimation(int input)
 }
 
 
+void Movable::ContinueAnimation()
+{
+	if (this->currani->EndOfAnimation())
+	{
+		this->currani->SetIndex(0);
+		this->currani = this->animations->at(0);
+		
+	}
+	else
+	{
+		this->currani->SetIndex(this->currani->GetIndex() + 1);
+	}
+}
+
+
 void Movable::ActivateAnimation(animation* ani)
 {
 	if (this->currani == this->animations->at(0))

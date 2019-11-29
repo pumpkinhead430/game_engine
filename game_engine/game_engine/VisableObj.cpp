@@ -13,8 +13,9 @@ VisableObj::VisableObj(SDL_Renderer *renderer, string path, int x, int y)
 
 VisableObj::VisableObj(SDL_Renderer* renderer, int x, int y)
 {
+	this->current_image = nullptr;
 	this->image_info->x = x;
-	this->image_info->y = y;;
+	this->image_info->y = y;
 	this->id = ID;
 	ID++;
 }
