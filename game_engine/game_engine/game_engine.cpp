@@ -54,7 +54,7 @@ int main(int argc, char* args[])
 	vector<Image*>* frames = new vector<Image*>(0);
 	frames->push_back(new Image("assets/BarrelA.bmp", game->GetRenderer()));
 	frames->push_back(new Image("assets/trans_cubes.png", game->GetRenderer()));
-	animation *mov = new animation(3, SDL_GetScancodeFromName("w"), 0, 3, frames);
+	animation *mov = new animation(3, -1, 0, 3, frames);
 
 	vector<Image*>* frames1 = new vector<Image*>(0);
 	frames1->push_back(new Image("assets/defult.png", game->GetRenderer()));

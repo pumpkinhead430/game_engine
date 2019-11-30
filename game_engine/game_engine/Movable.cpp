@@ -54,22 +54,31 @@ void Movable::ContinueAnimation()
 {
 	if (this->currani->EndOfAnimation())
 	{
-		this->currani->SetIndex(0);
-		this->currani = this->animations->at(0);
-		
+		this->currani->SetIndex(0);		
+		for (int i = 0; i < this->animations->size(); i++)
+		{
+			if (this->animations->at(i)->DefultAnimation())
+			{
+				this->currani = this->animations->at(i);
+				this->AddForce(this->currani->GetForce()->first, this->currani->GetForce()->second);
+				break;
+			}
+		}
 	}
 	else
 	{
 		this->currani->SetIndex(this->currani->GetIndex() + 1);
 	}
 	this->current_image = this->currani->GetImage(this->currani->GetIndex());
+	if (this->id == 1)
+		cout << this->current_image->height << "\n";
 }
 
 
 
 void Movable::ActivateAnimation(animation* ani)
 {
-	if (this->currani == this->animations->at(0))
+	if (this->currani->DefultAnimation())
 	{
 		this->currani = ani;
 		this->currani->SetIndex(0);

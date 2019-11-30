@@ -3,7 +3,7 @@
 animation::animation(SDL_Renderer* renderer)
 {
 	this->index = 0;
-	this->trigger = 26;
+	this->trigger = -1;
 	this->force->first = 0;
 	this->force->second = 1;
 	this->frames->push_back(new Image("assets/defult.png", renderer));
@@ -23,6 +23,13 @@ animation::animation(int damage, int trigger,int forcey, int forcex, vector<Imag
 Image* animation::GetImage(int index)
 {
 	return this->frames->at(index);
+}
+
+bool animation::DefultAnimation()
+{
+	if (this->trigger == -1)
+		return true;
+	return false;
 }
 
 bool animation::EndOfAnimation()
