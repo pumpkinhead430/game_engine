@@ -38,58 +38,39 @@ void SetUp()
 int main(int argc, char* args[])
 {
 	// limiting frames per second
-	const int FPS = 144;
+	const int FPS = 60;
 	const int frameDealy = 1000 / FPS;
 	Uint32 framestart;
 	Uint32 frametime;
 	//
 	// creating game and objects of the game
 	game = new Game();
-	game->init("hello", 1000, 1000, false);
+	game->init("hello", 640, 400, false);
 	Stationary* temp = new Stationary(3, game->GetRenderer(), "assets/BarrelA.bmp", 30, 30);
 	stationaryobjs->push_back(temp);
 
 	animation* defult = new animation(game->GetRenderer());
 	vector<Image*>* frames = new vector<Image*>(0);
-	frames->push_back(new Image("assets/BarrelA.bmp", game->GetRenderer()));
-	frames->push_back(new Image("assets/trans_cubes.png", game->GetRenderer()));
-	animation *mov = new animation(3, SDL_GetScancodeFromName("s"), 0, 3, frames);
+	frames->push_back(new Image("assets/UserR.bmp", game->GetRenderer()));
+	frames->push_back(new Image("assets/UserWalR.bmp", game->GetRenderer()));
+	animation *mov = new animation(3, SDL_GetScancodeFromName("s"), 0, 1, frames);
 	vector<Image*>* frames1 = new vector<Image*>(0);
-	frames1->push_back(new Image("assets/BarrelA.bmp", game->GetRenderer()));
+	frames1->push_back(new Image("assets/trans_cubes.png", game->GetRenderer()));
 	frames1->push_back(new Image("assets/line.png", game->GetRenderer()));
-	animation* mov1 = new animation(3, SDL_GetScancodeFromName("w"), 1, 0, frames1);
+	frames1->push_back(new Image("assets/BarrelA.bmp", game->GetRenderer()));
+	animation* mov1 = new animation(3, SDL_GetScancodeFromName("w"), 0, 0, frames1);
 	vector <animation*>* animations = new vector<animation*>(0);
 	animations->push_back(defult);
 	animations->push_back(mov);
 	animations->push_back(mov1);
-	movablechars->push_back(&Movable(game->GetRenderer(), 700, 100, animations));
+	movablechars->push_back(&Movable(game->GetRenderer(), 0, 0, animations));
 	movablechars->push_back(&Movable(game->GetRenderer(), 0, 400));
 	SetUp();
-	//
-	//starting game loop
-	/*
-	SDL_RenderClear(game->GetRenderer());
-	SDL_RenderCopy(game->GetRenderer(), movablechars->at(0)->GetCurrentImage()->GetImage(), NULL, movablechars->at(0)->GetInfo());
-	movablechars->at(0)->ContinueAnimation();
-	SDL_RenderCopy(game->GetRenderer(), frames1->at(1)->GetImage(), NULL, movablechars->at(0)->GetInfo());
-	auto t1 = std::chrono::high_resolution_clock::now();
-	auto t2 = std::chrono::high_resolution_clock::now();
-	auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() * pow(10, -9);
-	SDL_RenderPresent(game->GetRenderer());
-	while(duration != 10000)
-	{
-
-		auto t2 = std::chrono::high_resolution_clock::now();
-		auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() * pow(10, -9);
-		//std::cout << "\n" << duration * pow(10,-9);
-	}
-	*/
 	while (game->running())
 	{
 		auto t1 = std::chrono::high_resolution_clock::now();
 		framestart = SDL_GetTicks();
 		game->handleEvents(movablechars);
-		game->update(movablechars);
 		collision(all_objects, movablechars, colided);
 		//prints all sides an objects has been hit 
 		game->render(movablechars, stationaryobjs);

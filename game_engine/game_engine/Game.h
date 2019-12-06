@@ -15,7 +15,6 @@ public:
 	~Game();
 	void init(const char* title, int width, int height, bool fullscreen);
 	void handleEvents(vector<Movable*> *movobj);
-	void update(vector<Movable*> *movobjs);
 	bool running();
 	void render(vector<Movable*>* Torender, vector<Stationary*>* stationary);
 	void clean();
