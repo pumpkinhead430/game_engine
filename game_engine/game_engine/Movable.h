@@ -12,6 +12,7 @@ private:
 	animation* currani = nullptr;
 	SDL_Rect *dstpos = new SDL_Rect();
 	void ActivateAnimation(animation* ani);
+	void ChangeCurrentImage(Image* image);
 public:
 	Movable(SDL_Renderer* renderer, int x, int y, vector<animation*>* animations);
 	Movable(SDL_Renderer* renderer, int x, int y);

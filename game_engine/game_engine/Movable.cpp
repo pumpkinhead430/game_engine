@@ -9,11 +9,16 @@ Movable::Movable(SDL_Renderer* renderer, int x, int y, vector<animation*>* anima
 	this->dstpos->h = this->image_info->h;
 	this->dstpos->w = this->image_info->w;
 	this->animations = animations;
-	this->current_image = this->animations->at(0)->GetImage(0);
-	this->current_image = this->animations->at(0)->GetImage(0);
+	for(int i = 0; i< this->animations->size(); i ++)
+	{
+		if(this->animations->at(i)->DefultAnimation())
+		{
+			this->current_image = this->animations->at(i)->GetImage(0);
+			this->currani = this->animations->at(0);
+		}
+	}
 	this->image_info->h = current_image->height;
 	this->image_info->w = current_image->width;
-	this->currani = this->animations->at(0);
 	this->speed->first = 0;
 	this->force->first = 0;
 	this->speed->second = 0;
@@ -50,6 +55,7 @@ void Movable::TriggerAnimation(int input)
 }
 
 
+
 void Movable::ContinueAnimation()
 {
 	if (this->currani->EndOfAnimation())
@@ -69,9 +75,7 @@ void Movable::ContinueAnimation()
 	{
 		this->currani->SetIndex(this->currani->GetIndex() + 1);
 	}
-	this->current_image = this->currani->GetImage(this->currani->GetIndex());
-	if (this->id == 1)
-		cout << this->current_image->height << "\n";
+	ChangeCurrentImage(this->currani->GetImage(this->currani->GetIndex()));
 }
 
 
@@ -82,10 +86,18 @@ void Movable::ActivateAnimation(animation* ani)
 	{
 		this->currani = ani;
 		this->currani->SetIndex(0);
+		ChangeCurrentImage(this->currani->GetImage(this->currani->GetIndex()));
 	}
 	int forcey = ani->GetForce()->first;
 	int forcex = ani->GetForce()->second;
 	this->AddForce(forcey,forcex);
+}
+
+void Movable::ChangeCurrentImage(Image* image)
+{
+	this->current_image = image;
+	this->image_info->h = this->current_image->height;
+	this->image_info->w = this->current_image->width;
 }
 
 void Movable::AddForce(int forcey, int forcex)

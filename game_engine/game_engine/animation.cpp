@@ -5,7 +5,7 @@ animation::animation(SDL_Renderer* renderer)
 	this->index = 0;
 	this->trigger = -1;
 	this->force->first = 0;
-	this->force->second = 1;
+	this->force->second = 0;
 	this->frames->push_back(new Image("assets/defult.png", renderer));
 	this->damage = 0;
 }
@@ -34,7 +34,7 @@ bool animation::DefultAnimation()
 
 bool animation::EndOfAnimation()
 {
-	if(this->frames->size() == (int)this->index + 1)
+	if(this->frames->size() == this->index + 1)
 		return true;
 	return false;
 }
