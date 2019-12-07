@@ -36,10 +36,10 @@ bool Image::IsTransperent(int i, int j)
 }
 
 
-Uint32 Image::getPixel(SDL_Surface *loadingSurface, int y, int x) {
+Uint32 Image::getPixel(SDL_Surface *loadingSurface, int y, int x) 
+{
 	Uint32 *pixels = (Uint32*)loadingSurface->pixels;
 	return pixels[(y * loadingSurface->pitch / 4) + x];
-
 }
 
 int Image::GetAlpha(SDL_Surface* surface, int y, int x)
@@ -61,11 +61,6 @@ int Image::GetAlpha(SDL_Surface* surface, int y, int x)
 	return getColor.a;
 }
 
-
-vector<int>* Image::GetAlphaChannel()
-{
-	return this->alpha;
-}
 
 void Image::SetCollisonPixels()
 {
@@ -99,9 +94,10 @@ void Image::SetCollisonPixels()
 }
 
 
-
+//sets and gets
 vector<array<int, 2>>* Image::GetCollisonPixels() { return this->collision_pixels; }
 SDL_Texture* Image::GetImage() { return this->image; }
+vector<int>* Image::GetAlphaChannel() { return this->alpha; }
 
 
 Image::~Image()

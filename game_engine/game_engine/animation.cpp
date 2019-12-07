@@ -20,31 +20,29 @@ animation::animation(int damage, int trigger,int forcey, int forcex, vector<Imag
 	this->damage = damage;
 }
 
-Image* animation::GetImage(int index)
-{
-	return this->frames->at(index);
-}
 
 bool animation::DefultAnimation()
-{
+{//checks if this animation is the defult animation
 	if (this->trigger == -1)
 		return true;
 	return false;
 }
 
 bool animation::EndOfAnimation()
-{
-	if(this->frames->size() == this->index + 1)
+{//returns if the animation has ended or not
+	if((int)this->frames->size() == this->index + 1)
 		return true;
 	return false;
 }
 
 bool animation::IsTriggered(int input)
-{
+{// this function checks whether the input is the animation's trigger
 	if (this->trigger == input)
 		return true;
 	return false;
 }
+//sets and gets
+Image* animation::GetImage(int index){ return this->frames->at(index); }
 int animation::GetIndex() { return this->index; }
 pair<int, int>* animation::GetForce(){ return this->force; }
 void animation::SetIndex(int index){ this->index = index; }

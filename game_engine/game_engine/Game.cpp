@@ -32,7 +32,14 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 
 void Game::handleEvents(vector<Movable*> *movobj)
 {
-	//check if a event happens and acts by it
+	//updating all the movable objects
+	for (int i = 0; i < movobj->size(); i++)
+	{
+		movobj->at(i)->ContinueAnimation();
+		movobj->at(i)->AddSpeed();
+		movobj->at(i)->AddToPostion();
+	}
+	//check if a event happens and inputs it to the iput handler	
 	SDL_Event event;
 	SDL_PollEvent(&event);
 	switch (event.type)
@@ -44,12 +51,6 @@ void Game::handleEvents(vector<Movable*> *movobj)
 		this->KeyInput.SetState(event.key.keysym.scancode, event.key.state);
 	case SDL_KEYUP:
 		this->KeyInput.SetState(event.key.keysym.scancode, event.key.state);
-	}
-	for (int i = 0; i < movobj->size(); i++)
-	{
-		movobj->at(i)->ContinueAnimation();
-		movobj->at(i)->AddSpeed();
-		movobj->at(i)->AddToPostion();
 	}
 	for (int i = 0; i < this->KeyInput.GetKeys()->size(); i++)
 	{

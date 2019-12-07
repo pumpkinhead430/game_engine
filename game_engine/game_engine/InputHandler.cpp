@@ -10,19 +10,13 @@ InputHandler::InputHandler()
 	}
 }
 
-int InputHandler::GetKeyState(int scancode)
-{
-	return this->KeyState->at(scancode);
-}
-vector<int>* InputHandler::GetKeys()
-{
-	return this->KeyState;
-}
 void InputHandler::SetState(int scancode, int state)
-{
-	//cahnging the key state of a realeased or pressed button
+{//cahnging the key state of a realeased or pressed button
 	this->KeyState->at(scancode) = state;
 }
+
+int InputHandler::GetKeyState(int scancode) { return this->KeyState->at(scancode); }
+vector<int>* InputHandler::GetKeys() { return this->KeyState; }
 
 InputHandler::~InputHandler()
 {

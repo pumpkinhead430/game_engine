@@ -57,7 +57,7 @@ void Movable::TriggerAnimation(int input)
 
 
 void Movable::ContinueAnimation()
-{
+{//continues current animation and brings it back to defult if animation ended
 	if (this->currani->EndOfAnimation())
 	{
 		this->currani->SetIndex(0);		
@@ -81,7 +81,7 @@ void Movable::ContinueAnimation()
 
 
 void Movable::ActivateAnimation(animation* ani)
-{
+{//strats the animation
 	if (this->currani->DefultAnimation())
 	{
 		this->currani = ani;
@@ -94,26 +94,20 @@ void Movable::ActivateAnimation(animation* ani)
 }
 
 void Movable::ChangeCurrentImage(Image* image)
-{
+{//changes current image
 	this->current_image = image;
 	this->image_info->h = this->current_image->height;
 	this->image_info->w = this->current_image->width;
 }
 
 void Movable::AddForce(int forcey, int forcex)
-{
+{//adding force
 	this->force->first += forcey;
 	this->force->second += forcex;
 }
 
-void Movable::AddTriggerForce()
-{//
-	//this->force->first -= 1;						//this group of functions shall be change to recive information from animations
-	this->force->second -= 1;
-}
-//----------------------------------------
 void Movable::AddSpeed()
-{
+{//adding speed
 	this->speed->first += this->force->first;
 	this->speed->second += this->force->second;
 	this->force->first = 0;
@@ -121,13 +115,13 @@ void Movable::AddSpeed()
 }
 
 void Movable::AddToPostion()
-{
+{//adds to the postion
 	if (this->id == 1)
 		this->SetDst(this->dstpos->y + this->speed->first + 1, this->dstpos->x + this->speed->second);
 	else
 		this->SetDst(this->dstpos->y + this->speed->first, this->dstpos->x + this->speed->second);
 }
-
+//sets and gets
 void Movable::SetSpeed(int ySpeed, int xSpeed)
 {
 	this->speed->first = ySpeed;

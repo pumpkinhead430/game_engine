@@ -18,7 +18,6 @@ public:
 	Movable(SDL_Renderer* renderer, int x, int y);
 	void TriggerAnimation(int input);
 	void ContinueAnimation();
-	void AddTriggerForce();
 	void AddSpeed();
 	void AddToPostion();
 	void AddForce(int forcey, int forcex);
