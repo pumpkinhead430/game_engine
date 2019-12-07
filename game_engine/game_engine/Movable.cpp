@@ -116,10 +116,7 @@ void Movable::AddSpeed()
 
 void Movable::AddToPostion()
 {//adds to the postion
-	if (this->id == 1)
-		this->SetDst(this->dstpos->y + this->speed->first + 1, this->dstpos->x + this->speed->second);
-	else
-		this->SetDst(this->dstpos->y + this->speed->first, this->dstpos->x + this->speed->second);
+	this->SetDst(this->dstpos->y + this->speed->first, this->dstpos->x + this->speed->second);
 }
 //sets and gets
 void Movable::SetSpeed(int ySpeed, int xSpeed)
