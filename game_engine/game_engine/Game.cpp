@@ -23,7 +23,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 		renderer = SDL_CreateRenderer(window, -1, 0);
 		if (renderer)
 		{
-			SDL_SetRenderDrawColor(renderer, 255, 0, 0, 0);
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 		}
 
 		isRunning = true;
@@ -41,16 +41,27 @@ void Game::handleEvents(vector<Movable*> *movobj)
 	}
 	//check if a event happens and inputs it to the iput handler	
 	SDL_Event event;
-	SDL_PollEvent(&event);
-	switch (event.type)
+	int lastcode = -1;
+	while (SDL_PollEvent(&event))
 	{
-	case SDL_QUIT:
-		isRunning = false;
-		break;
-	case SDL_KEYDOWN:
-		this->KeyInput.SetState(event.key.keysym.scancode, event.key.state);
-	case SDL_KEYUP:
-		this->KeyInput.SetState(event.key.keysym.scancode, event.key.state);
+		switch(event.type)
+		{
+			case(SDL_QUIT):
+			{
+				isRunning = false;
+				break;
+			}
+			case(SDL_KEYDOWN):
+			{
+				int lastcode = event.key.keysym.scancode;
+				this->KeyInput.SetState(event.key.keysym.scancode, event.key.state);
+			}
+			case(SDL_KEYUP):
+			{
+				if (lastcode != event.key.keysym.scancode)
+					this->KeyInput.SetState(event.key.keysym.scancode, event.key.state);
+			}
+		}
 	}
 	for (int i = 0; i < this->KeyInput.GetKeys()->size(); i++)
 	{
@@ -61,11 +72,9 @@ void Game::handleEvents(vector<Movable*> *movobj)
 				movobj->at(j)->TriggerAnimation(i);
 
 			}
-				
+
 		}
 	}
-			
-		
 
 }
 
