@@ -58,7 +58,10 @@ void who_colided(Movable *character, vector<VisableObj*>* all_objects, vector<Vi
 	}
 }
 
-
+void ActivateAffect(VisableObj* colision_object)
+{
+	
+}
 
 void collision(vector<VisableObj*>*all_objects, vector<Movable*>* movablechars, vector<VisableObj*> *colided)
 {
@@ -99,6 +102,7 @@ void collision(vector<VisableObj*>*all_objects, vector<Movable*>* movablechars, 
 				}
 
 			}
+			for_each(colided->begin(), colided->end(), ActivateAffect)
 
 		}
 	}

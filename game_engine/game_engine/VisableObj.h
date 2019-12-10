@@ -15,10 +15,11 @@ class VisableObj
 protected:
 	SDL_Rect *image_info = new SDL_Rect();
 	int id;
+	vector<string> *curr_ani_start = new vector<string>(0);
 	Image *current_image;
 
 public:
-	VisableObj(SDL_Renderer *renderer, string path, int x, int y);
+	VisableObj(SDL_Renderer *renderer, vector<string>* curr_ani_start, string path, int x, int y);
 	VisableObj(SDL_Renderer* renderer, int x, int y);
 	void SetXPos(int pos);
 	void SetYPos(int pos);

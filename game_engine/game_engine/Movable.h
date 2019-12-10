@@ -13,6 +13,7 @@ private:
 	SDL_Rect *dstpos = new SDL_Rect();
 	void ActivateAnimation(animation* ani);
 	void ChangeCurrentImage(Image* image);
+	void ChangeAnimation(animation* ani);
 public:
 	Movable(SDL_Renderer* renderer, int x, int y, vector<animation*>* animations);
 	Movable(SDL_Renderer* renderer, int x, int y);

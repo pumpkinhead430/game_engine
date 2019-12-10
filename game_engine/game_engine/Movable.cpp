@@ -13,12 +13,9 @@ Movable::Movable(SDL_Renderer* renderer, int x, int y, vector<animation*>* anima
 	{
 		if(this->animations->at(i)->DefultAnimation())
 		{
-			this->current_image = this->animations->at(i)->GetImage(0);
-			this->currani = this->animations->at(0);
+			ChangeAnimation(this->animations->at(i));
 		}
 	}
-	this->image_info->h = current_image->height;
-	this->image_info->w = current_image->width;
 	this->speed->first = 0;
 	this->force->first = 0;
 	this->speed->second = 0;
@@ -28,10 +25,7 @@ Movable::Movable(SDL_Renderer* renderer, int x, int y, vector<animation*>* anima
 Movable::Movable(SDL_Renderer* renderer, int x, int y) :VisableObj(renderer, x, y)
 {//setting the trigger which will be in animations in due time and setting defult all speed and force
 	this->animations->push_back(new animation(renderer));
-	this->current_image = this->animations->at(0)->GetImage(0);
-	this->image_info->h = current_image->height;
-	this->image_info->w = current_image->width;
-	this->currani = this->animations->at(0);
+	ChangeAnimation(this->animations->at(0));
 	this->dstpos->h = this->image_info->h;
 	this->dstpos->w = this->image_info->w;
 	this->dstpos->x = this->image_info->x;
@@ -65,7 +59,7 @@ void Movable::ContinueAnimation()
 		{
 			if (this->animations->at(i)->DefultAnimation())
 			{
-				this->currani = this->animations->at(i);
+				ChangeAnimation(this->animations->at(i));
 				this->AddForce(this->currani->GetForce()->first, this->currani->GetForce()->second);
 				break;
 			}
@@ -74,8 +68,9 @@ void Movable::ContinueAnimation()
 	else
 	{
 		this->currani->SetIndex(this->currani->GetIndex() + 1);
+		ChangeCurrentImage(this->currani->GetImage(this->currani->GetIndex()));
 	}
-	ChangeCurrentImage(this->currani->GetImage(this->currani->GetIndex()));
+	
 }
 
 
@@ -98,6 +93,14 @@ void Movable::ChangeCurrentImage(Image* image)
 	this->current_image = image;
 	this->image_info->h = this->current_image->height;
 	this->image_info->w = this->current_image->width;
+}
+
+void Movable::ChangeAnimation(animation* ani)
+{
+	this->currani = ani;
+	this->currani->SetIndex(0);
+	ChangeCurrentImage(this->currani->GetImage(this->currani->GetIndex()));
+	this->curr_ani_start = this->currani->GetAniStarters();
 }
 
 void Movable::AddForce(int forcey, int forcex)
