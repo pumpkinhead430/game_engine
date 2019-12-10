@@ -21,7 +21,8 @@ public:
 	bool DefultAnimation();
 	bool EndOfAnimation();
 	bool IsTriggered(int input);
-	vector<string>* GetAniStarters();
+	vector<string>* GetAniStartes();
+	string GetName();
 	int GetIndex();
 	pair<int, int>* GetForce();
 	void SetIndex(int index);

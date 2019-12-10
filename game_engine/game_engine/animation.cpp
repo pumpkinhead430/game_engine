@@ -45,11 +45,11 @@ bool animation::IsTriggered(int input)
 		return true;
 	return false;
 }
-vector<string>* animation::GetAniStarters()
-{
-	return this->ani_starter;
-}
+
+
 //sets and gets
+vector<string>* animation::GetAniStartes() { return this->ani_starter; }
+string animation::GetName() { return this->name; }
 Image* animation::GetImage(int index){ return this->frames->at(index); }
 int animation::GetIndex() { return this->index; }
 pair<int, int>* animation::GetForce(){ return this->force; }

@@ -58,9 +58,16 @@ void who_colided(Movable *character, vector<VisableObj*>* all_objects, vector<Vi
 	}
 }
 
-void ActivateAffect(VisableObj* colision_object)
+void ActivateAffect(VisableObj* collision_object, Movable* colided_object)
 {
-	
+	for(int i = 0; i< collision_object->GetAniStarters()->size(); i++)
+	{
+		for(int j = 0; j < colided_object->GetAnimations()->size(); j++)
+		{
+			if (collision_object->GetAniStarters()->at(i) == colided_object->GetAnimations()->at(j)->GetName())
+				colided_object->ActivateAnimation(colided_object->GetAnimations()->at(j));
+		}
+	}
 }
 
 void collision(vector<VisableObj*>*all_objects, vector<Movable*>* movablechars, vector<VisableObj*> *colided)
@@ -102,7 +109,10 @@ void collision(vector<VisableObj*>*all_objects, vector<Movable*>* movablechars, 
 				}
 
 			}
-			for_each(colided->begin(), colided->end(), ActivateAffect)
+			for(int j = 0; j < colided->size(); j++)
+			{
+				ActivateAffect(colided->at(j), movablechars->at(i));
+			}
 
 		}
 	}

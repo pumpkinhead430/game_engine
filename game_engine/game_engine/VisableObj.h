@@ -24,6 +24,7 @@ public:
 	void SetXPos(int pos);
 	void SetYPos(int pos);
 	int GetId();
+	vector<string>* GetAniStarters();
 	Image *GetCurrentImage();
 	SDL_Rect *GetInfo();
 	~VisableObj();

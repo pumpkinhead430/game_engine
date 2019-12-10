@@ -46,19 +46,19 @@ int main(int argc, char* args[])
 	// creating game and objects of the game
 	game = new Game();
 	game->init("hello", 1000, 1000, false);
-	Stationary* temp = new Stationary(3, game->GetRenderer(), "assets/BarrelA.bmp", 30, 30);
+	Stationary* temp = new Stationary(3, game->GetRenderer(), new vector<string>{ "jump", "help" },"assets/BarrelA.bmp", 30, 30);
 	stationaryobjs->push_back(temp);
 	//-------------------------------------------
 	animation* defult = new animation(game->GetRenderer());
 	vector<Image*>* frames = new vector<Image*>(0);
 	frames->push_back(new Image("assets/UserR.bmp", game->GetRenderer()));
 	frames->push_back(new Image("assets/UserWalR.bmp", game->GetRenderer()));
-	animation *mov = new animation(3, SDL_GetScancodeFromName("s"), 0, -1,"walk", frames);
+	animation *mov = new animation(3, SDL_GetScancodeFromName("s"), 0, -1, "walk", new vector<string>{"jump", "help"}, frames);
 	vector<Image*>* frames1 = new vector<Image*>(0);//setting first movable object
 	frames1->push_back(new Image("assets/trans_cubes.png", game->GetRenderer()));
 	frames1->push_back(new Image("assets/line.png", game->GetRenderer()));
 	frames1->push_back(new Image("assets/BarrelA.bmp", game->GetRenderer()));
-	animation* mov1 = new animation(3, SDL_GetScancodeFromName("d"), 0, 0,"walk", frames1);
+	animation* mov1 = new animation(3, SDL_GetScancodeFromName("d"), 0, 0,"walk", new vector<string>{ "jump", "help" }, frames1);
 	vector <animation*>* animations = new vector<animation*>(0);
 	animations->push_back(defult);
 	animations->push_back(mov);
@@ -69,12 +69,12 @@ int main(int argc, char* args[])
 	vector<Image*>* frames2 = new vector<Image*>(0);
 	frames2->push_back(new Image("assets/UserR.bmp", game->GetRenderer()));
 	frames2->push_back(new Image("assets/UserWalR.bmp", game->GetRenderer()));
-	animation* mov2 = new animation(3, SDL_GetScancodeFromName("w"), 0, 1,"walk", frames2);
+	animation* mov2 = new animation(3, SDL_GetScancodeFromName("w"), 0, 1,"walk", new vector<string>{ "jump", "help" }, frames2);
 	vector<Image*>* frames3 = new vector<Image*>(0); //setting second movable object
 	frames3->push_back(new Image("assets/trans_cubes.png", game->GetRenderer()));
 	frames3->push_back(new Image("assets/line.png", game->GetRenderer()));
 	frames3->push_back(new Image("assets/BarrelA.bmp", game->GetRenderer()));
-	animation* mov3 = new animation(3, SDL_SCANCODE_SPACE, -1, 0, "jump",frames3);
+	animation* mov3 = new animation(3, SDL_SCANCODE_SPACE, -1, 0, "jump", new vector<string>{ "jump", "help" }, frames3);
 	vector <animation*>* animations1 = new vector<animation*>(0);
 	animations1->push_back(defult1);
 	animations1->push_back(mov2);

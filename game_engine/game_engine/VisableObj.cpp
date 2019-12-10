@@ -20,7 +20,7 @@ VisableObj::VisableObj(SDL_Renderer* renderer, int x, int y)
 	this->id = ID;
 	ID++;
 }
-
+vector<string>* VisableObj::GetAniStarters(){ return this->curr_ani_start; }
 Image * VisableObj::GetCurrentImage() { return this->current_image; }
 int VisableObj::GetId() { return this->id; }
 SDL_Rect* VisableObj::GetInfo() { return this->image_info; }

@@ -100,7 +100,7 @@ void Movable::ChangeAnimation(animation* ani)
 	this->currani = ani;
 	this->currani->SetIndex(0);
 	ChangeCurrentImage(this->currani->GetImage(this->currani->GetIndex()));
-	this->curr_ani_start = this->currani->GetAniStarters();
+	this->curr_ani_start = this->currani->GetAniStartes();
 }
 
 void Movable::AddForce(int forcey, int forcex)
@@ -139,6 +139,10 @@ void Movable::SetForce(int forcey, int forcex)
 }
 SDL_Rect* Movable::GetDst() { return this->dstpos; }
 pair<int, int>* Movable::GetForce() { return this->force; }
+vector<animation*>* Movable::GetAnimations()
+{
+	return this->animations;
+}
 pair<int, int>* Movable::GetSpeed(){ return this->speed; }
 Movable::~Movable()
 {

@@ -11,12 +11,12 @@ private:
 	vector<animation*>*animations = new vector<animation*>(0);
 	animation* currani = nullptr;
 	SDL_Rect *dstpos = new SDL_Rect();
-	void ActivateAnimation(animation* ani);
 	void ChangeCurrentImage(Image* image);
 	void ChangeAnimation(animation* ani);
 public:
 	Movable(SDL_Renderer* renderer, int x, int y, vector<animation*>* animations);
 	Movable(SDL_Renderer* renderer, int x, int y);
+	void ActivateAnimation(animation* ani);
 	void TriggerAnimation(int input);
 	void ContinueAnimation();
 	void AddSpeed();
@@ -25,6 +25,7 @@ public:
 	void SetSpeed(int ySpeed, int xSpeed);
 	void SetDst(int y, int x);
 	pair<int, int>* GetForce();
+	vector<animation*>* GetAnimations();
 	void SetForce(int forcey, int forcex);
 	pair<int, int>* GetSpeed();
 	SDL_Rect * GetDst();
