@@ -7,7 +7,7 @@ animation::animation(SDL_Renderer* renderer)
 	this->trigger = -1;
 	this->force->first = 0;
 	this->force->second = 0;
-	this->frames->push_back(new Image("assets/defult.png", renderer));
+	this->frames->push_back(new Image("assets/UserR.bmp", renderer));
 	this->ani_starter->push_back("");
 	this->damage = 0;
 }
@@ -50,6 +50,7 @@ bool animation::IsTriggered(int input)
 //sets and gets
 vector<string>* animation::GetAniStartes() { return this->ani_starter; }
 string animation::GetName() { return this->name; }
+int animation::GetDamage() { return this->damage; }
 Image* animation::GetImage(int index){ return this->frames->at(index); }
 int animation::GetIndex() { return this->index; }
 pair<int, int>* animation::GetForce(){ return this->force; }

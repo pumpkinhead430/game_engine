@@ -6,6 +6,8 @@ class Movable : public VisableObj
 {
 
 private:
+	int health;
+	bool in_air;
 	pair<int, int>* speed = new pair<int, int>(0, 0);
 	pair<int, int>* force = new pair<int, int>(0, 0);
 	vector<animation*>*animations = new vector<animation*>(0);
@@ -14,16 +16,19 @@ private:
 	void ChangeCurrentImage(Image* image);
 	void ChangeAnimation(animation* ani);
 public:
-	Movable(SDL_Renderer* renderer, int x, int y, vector<animation*>* animations);
-	Movable(SDL_Renderer* renderer, int x, int y);
+	Movable(SDL_Renderer* renderer, int health,int x, int y, vector<animation*>* animations);
+	Movable(SDL_Renderer* renderer, int health,int x, int y);
 	void ActivateAnimation(animation* ani);
 	void TriggerAnimation(int input);
 	void ContinueAnimation();
+	bool InAir();
 	void AddSpeed();
 	void AddToPostion();
 	void AddForce(int forcey, int forcex);
 	void SetSpeed(int ySpeed, int xSpeed);
 	void SetDst(int y, int x);
+	void SetHealth(int health);
+	int GetHealth();
 	pair<int, int>* GetForce();
 	vector<animation*>* GetAnimations();
 	void SetForce(int forcey, int forcex);

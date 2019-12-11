@@ -70,6 +70,11 @@ void ActivateAffect(VisableObj* collision_object, Movable* colided_object)
 	}
 }
 
+void Damage(VisableObj* collision_object, Movable* colided_object)
+{
+	colided_object->SetHealth(colided_object->GetHealth() - collision_object->GetDamage());
+}
+
 void collision(vector<VisableObj*>*all_objects, vector<Movable*>* movablechars, vector<VisableObj*> *colided)
 {
 	// this function checks where can the object go and move it according to that
@@ -112,6 +117,7 @@ void collision(vector<VisableObj*>*all_objects, vector<Movable*>* movablechars, 
 			for(int j = 0; j < colided->size(); j++)
 			{
 				ActivateAffect(colided->at(j), movablechars->at(i));
+				Damage(colided->at(j), movablechars->at(i));
 			}
 
 		}

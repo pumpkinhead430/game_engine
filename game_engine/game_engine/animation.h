@@ -23,6 +23,7 @@ public:
 	bool IsTriggered(int input);
 	vector<string>* GetAniStartes();
 	string GetName();
+	int GetDamage();
 	int GetIndex();
 	pair<int, int>* GetForce();
 	void SetIndex(int index);

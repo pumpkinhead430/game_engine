@@ -13,7 +13,7 @@
 #include "CollisionFunctions.h"
 using namespace std;
 vector<Movable*>* movablechars = new vector<Movable*>(0);//all Movable objects
-vector<Stationary*>* stationaryobjs = new vector<Stationary*>(0);//all Stationary objects
+vector<VisableObj*>* stationaryobjs = new vector<VisableObj*>(0);//all Stationary objects
 vector<VisableObj*>* all_objects = new vector<VisableObj*>(0);//all visable objects
 vector<VisableObj*>* colided = new vector<VisableObj*>(0);// all colided objects
 Game* game = nullptr;
@@ -46,14 +46,14 @@ int main(int argc, char* args[])
 	// creating game and objects of the game
 	game = new Game();
 	game->init("hello", 1000, 1000, false);
-	Stationary* temp = new Stationary(3, game->GetRenderer(), new vector<string>{ "jump", "help" },"assets/BarrelA.bmp", 30, 30);
+	VisableObj* temp = new VisableObj( game->GetRenderer(), new vector<string>{ "jump", "help" },"assets/BarrelA.bmp", 30, 30, 3);
 	stationaryobjs->push_back(temp);
 	//-------------------------------------------
 	animation* defult = new animation(game->GetRenderer());
 	vector<Image*>* frames = new vector<Image*>(0);
 	frames->push_back(new Image("assets/UserR.bmp", game->GetRenderer()));
 	frames->push_back(new Image("assets/UserWalR.bmp", game->GetRenderer()));
-	animation *mov = new animation(3, SDL_GetScancodeFromName("s"), 0, -1, "walk", new vector<string>{"jump", "help"}, frames);
+	animation *mov = new animation(3, SDL_GetScancodeFromName("s"), 0, 1, "walk", new vector<string>{"jump", "help"}, frames);
 	vector<Image*>* frames1 = new vector<Image*>(0);//setting first movable object
 	frames1->push_back(new Image("assets/trans_cubes.png", game->GetRenderer()));
 	frames1->push_back(new Image("assets/line.png", game->GetRenderer()));
@@ -80,8 +80,8 @@ int main(int argc, char* args[])
 	animations1->push_back(mov2);
 	animations1->push_back(mov3);
 	//-------------------------------------------
-	movablechars->push_back(&Movable(game->GetRenderer(), 0, 0, animations));
-	movablechars->push_back(&Movable(game->GetRenderer(), 0, 400, animations1));
+	movablechars->push_back(&Movable(game->GetRenderer(), 100,0, 15, animations));
+	movablechars->push_back(&Movable(game->GetRenderer(), 200,0, 400, animations1));
 	SetUp();
 	while (game->running())
 	{

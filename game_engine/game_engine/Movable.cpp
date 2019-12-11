@@ -2,8 +2,10 @@
 #include "Movable.h"
 
 
-Movable::Movable(SDL_Renderer* renderer, int x, int y, vector<animation*>* animations) :VisableObj(renderer, x, y)
+Movable::Movable(SDL_Renderer* renderer, int health,int x, int y, vector<animation*>* animations) :VisableObj(renderer, x, y)
 {//setting the trigger which will be in animations in due time and setting defult all speed and force
+	this->in_air = false;
+	this->health = health;
 	this->dstpos->x = this->image_info->x;
 	this->dstpos->y = this->image_info->y;
 	this->dstpos->h = this->image_info->h;
@@ -22,8 +24,10 @@ Movable::Movable(SDL_Renderer* renderer, int x, int y, vector<animation*>* anima
 	this->force->second = 0;
 }
 
-Movable::Movable(SDL_Renderer* renderer, int x, int y) :VisableObj(renderer, x, y)
+Movable::Movable(SDL_Renderer* renderer, int health, int x, int y) :VisableObj(renderer, x, y)
 {//setting the trigger which will be in animations in due time and setting defult all speed and force
+	this->in_air = false;
+	this->health = health;
 	this->animations->push_back(new animation(renderer));
 	ChangeAnimation(this->animations->at(0));
 	this->dstpos->h = this->image_info->h;
@@ -73,6 +77,11 @@ void Movable::ContinueAnimation()
 	
 }
 
+bool Movable::InAir()
+{
+	return this->in_air;
+}
+
 
 
 void Movable::ActivateAnimation(animation* ani)
@@ -101,6 +110,7 @@ void Movable::ChangeAnimation(animation* ani)
 	this->currani->SetIndex(0);
 	ChangeCurrentImage(this->currani->GetImage(this->currani->GetIndex()));
 	this->curr_ani_start = this->currani->GetAniStartes();
+	this->current_damage = this->currani->GetDamage();
 }
 
 void Movable::AddForce(int forcey, int forcex)
@@ -119,7 +129,13 @@ void Movable::AddSpeed()
 
 void Movable::AddToPostion()
 {//adds to the postion
+	if (this->speed->first != 0)
+		this->in_air = true;
+	else
+		this->in_air = false;	
 	this->SetDst(this->dstpos->y + this->speed->first, this->dstpos->x + this->speed->second);
+	if (!this->in_air)
+		this->speed->second = 0;
 }
 //sets and gets
 void Movable::SetSpeed(int ySpeed, int xSpeed)
@@ -132,6 +148,8 @@ void Movable::SetDst(int y, int x)
 	this->dstpos->x = x;
 	this->dstpos->y = y;
 }
+void Movable::SetHealth(int health) { this->health = health; }
+int Movable::GetHealth() { return this->health; }
 void Movable::SetForce(int forcey, int forcex)
 {
 	this->force->first = forcey;

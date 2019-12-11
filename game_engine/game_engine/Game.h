@@ -16,7 +16,7 @@ public:
 	void init(const char* title, int width, int height, bool fullscreen);
 	void handleEvents(vector<Movable*> *movobj);
 	bool running();
-	void render(vector<Movable*>* Torender, vector<Stationary*>* stationary);
+	void render(vector<Movable*>* Torender, vector<VisableObj*>* stationary);
 	void clean();
 	SDL_Renderer *GetRenderer();
 

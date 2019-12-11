@@ -23,7 +23,7 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 		renderer = SDL_CreateRenderer(window, -1, 0);
 		if (renderer)
 		{
-			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+			SDL_SetRenderDrawColor(renderer, 255, 0, 0, 0);
 		}
 
 		isRunning = true;
@@ -69,7 +69,8 @@ void Game::handleEvents(vector<Movable*> *movobj)
 		{
 			for (int j = 0; j < movobj->size(); j++)
 			{
-				movobj->at(j)->TriggerAnimation(i);
+				if(!movobj->at(j)->InAir())
+					movobj->at(j)->TriggerAnimation(i);
 
 			}
 
@@ -79,7 +80,7 @@ void Game::handleEvents(vector<Movable*> *movobj)
 }
 
 
-void Game::render(vector<Movable*>*canmove, vector<Stationary*>* stationary)
+void Game::render(vector<Movable*>*canmove, vector<VisableObj*>* stationary)
 {
 	//showing on screen all objects
 	SDL_RenderClear(renderer);
