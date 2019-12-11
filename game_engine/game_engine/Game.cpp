@@ -86,9 +86,9 @@ void Game::render(vector<Movable*>*canmove, vector<VisableObj*>* stationary)
 	SDL_RenderClear(renderer);
 	for (int i = 0; i < canmove->size(); i++)
 	{
-			SDL_RenderCopy(this->renderer, canmove->at(i)->GetCurrentImage()->GetImage(), NULL, canmove->at(i)->GetInfo());
-			canmove->at(i)->SetXPos(canmove->at(i)->GetDst()->x);
-			canmove->at(i)->SetYPos(canmove->at(i)->GetDst()->y);
+		SDL_RenderCopy(this->renderer, canmove->at(i)->GetCurrentImage()->GetImage(), NULL, canmove->at(i)->GetInfo());
+		canmove->at(i)->SetXPos(canmove->at(i)->GetDst()->x);
+		canmove->at(i)->SetYPos(canmove->at(i)->GetDst()->y);
 	}
 	for (int i = 0; i < stationary->size(); i++)
 	{

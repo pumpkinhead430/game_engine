@@ -1,5 +1,7 @@
 // test1.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
+//y == first
+//x == second
 
 #include <iostream>
 #include <vector>
@@ -16,9 +18,30 @@ vector<Movable*>* movablechars = new vector<Movable*>(0);//all Movable objects
 vector<VisableObj*>* stationaryobjs = new vector<VisableObj*>(0);//all Stationary objects
 vector<VisableObj*>* all_objects = new vector<VisableObj*>(0);//all visable objects
 vector<VisableObj*>* colided = new vector<VisableObj*>(0);// all colided objects
+vector<Movable*>* dead = new vector<Movable*>(0);
 Game* game = nullptr;
 
+bool IsDead(VisableObj* object)
+{
+	for (int i = 0; i < dead->size(); i++)
+	{
+		if (dead->at(i) == object)
+			return true;
+	}
+	return false;
+}
 
+void GetDead(vector<Movable*>* dead)
+{
+	for (int i = 0; i < movablechars->size(); i++)
+	{
+		if (movablechars->at(i)->GetHealth() <= 0)
+		{
+			dead->push_back(movablechars->at(i));
+			movablechars->erase(remove(movablechars->begin(), movablechars->end(), movablechars->at(i)), movablechars->end());
+		}
+	}
+}
 
 void SetUp()
 {
@@ -46,7 +69,7 @@ int main(int argc, char* args[])
 	// creating game and objects of the game
 	game = new Game();
 	game->init("hello", 1000, 1000, false);
-	VisableObj* temp = new VisableObj( game->GetRenderer(), new vector<string>{ "jump", "help" },"assets/BarrelA.bmp", 30, 30, 3);
+	VisableObj* temp = new VisableObj( game->GetRenderer(), new vector<string>{ "jump", "help" },"assets/BarrelA.bmp", 30, 30, 0);
 	stationaryobjs->push_back(temp);
 	//-------------------------------------------
 	animation* defult = new animation(game->GetRenderer());
@@ -69,7 +92,7 @@ int main(int argc, char* args[])
 	vector<Image*>* frames2 = new vector<Image*>(0);
 	frames2->push_back(new Image("assets/UserR.bmp", game->GetRenderer()));
 	frames2->push_back(new Image("assets/UserWalR.bmp", game->GetRenderer()));
-	animation* mov2 = new animation(3, SDL_GetScancodeFromName("w"), 0, 1,"walk", new vector<string>{ "jump", "help" }, frames2);
+	animation* mov2 = new animation(3, SDL_GetScancodeFromName("w"), 0, 3,"walk", new vector<string>{ "jump", "help" }, frames2);
 	vector<Image*>* frames3 = new vector<Image*>(0); //setting second movable object
 	frames3->push_back(new Image("assets/trans_cubes.png", game->GetRenderer()));
 	frames3->push_back(new Image("assets/line.png", game->GetRenderer()));
@@ -80,8 +103,8 @@ int main(int argc, char* args[])
 	animations1->push_back(mov2);
 	animations1->push_back(mov3);
 	//-------------------------------------------
-	movablechars->push_back(&Movable(game->GetRenderer(), 100,0, 15, animations));
-	movablechars->push_back(&Movable(game->GetRenderer(), 200,0, 400, animations1));
+	movablechars->push_back(&Movable(game->GetRenderer(), 3,0, 15, animations));
+	movablechars->push_back(&Movable(game->GetRenderer(), 3,0, 400, animations1));
 	SetUp();
 	while (game->running())
 	{
@@ -89,7 +112,7 @@ int main(int argc, char* args[])
 		framestart = SDL_GetTicks();
 		game->handleEvents(movablechars);
 		collision(all_objects, movablechars, colided);
-		//prints all sides an objects has been hit 
+		GetDead(dead);
 		game->render(movablechars, stationaryobjs);
 		frametime = SDL_GetTicks() - framestart;
 		if (frameDealy > frametime)
