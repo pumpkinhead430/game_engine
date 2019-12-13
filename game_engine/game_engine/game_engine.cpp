@@ -12,7 +12,7 @@
 #include "Image.h"
 #include <chrono>
 #include "Stationary.h"
-#include "CollisionFunctions.h"
+//#include "CollisionFunctions.h"
 using namespace std;
 vector<Movable*>* movablechars = new vector<Movable*>(0);//all Movable objects
 vector<VisableObj*>* stationaryobjs = new vector<VisableObj*>(0);//all Stationary objects
@@ -111,7 +111,7 @@ int main(int argc, char* args[])
 		auto t1 = std::chrono::high_resolution_clock::now();
 		framestart = SDL_GetTicks();
 		game->handleEvents(movablechars);	
-		collision(all_objects, movablechars, colided);
+		game->collision(all_objects, movablechars, colided);
 		GetDead(dead);
 		game->render(movablechars, stationaryobjs);
 		frametime = SDL_GetTicks() - framestart;

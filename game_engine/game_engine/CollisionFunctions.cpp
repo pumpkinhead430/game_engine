@@ -1,9 +1,8 @@
-#pragma once
-//this headr is for all collison related functions
+#include "pch.h"
+#include "Game.h"
 #define PI 3.14159265
-#include <iostream>
 using namespace std;
-VisableObj* Pixel_Colide(Movable *character, int i, int j, vector<VisableObj*>* all_objects, int dst_x, int dst_y)
+VisableObj* Game::Pixel_Colide(Movable* character, int i, int j, vector<VisableObj*>* all_objects, int dst_x, int dst_y)
 { // this function checks if an object is "in" the pixel i, j and returns if there is a object at dst_x, dst_y
 	for (int index = 0; index < all_objects->size(); index++)
 	{
@@ -16,7 +15,7 @@ VisableObj* Pixel_Colide(Movable *character, int i, int j, vector<VisableObj*>* 
 				if (xplace >= 0 && xplace < all_objects->at(index)->GetInfo()->w)
 				{
 					if (!all_objects->at(index)->GetCurrentImage()->IsTransperent(yplace, xplace))//checking if that pixel of the object is transperent or not 
-					{ 
+					{
 						return all_objects->at(index);
 					}
 				}
@@ -27,15 +26,15 @@ VisableObj* Pixel_Colide(Movable *character, int i, int j, vector<VisableObj*>* 
 
 }
 
-void who_colided(Movable *character, vector<VisableObj*>* all_objects, vector<VisableObj*>* colided, int dst_x, int dst_y)
+void Game::who_colided(Movable* character, vector<VisableObj*>* all_objects, vector<VisableObj*>* colided, int dst_x, int dst_y)
 {
 	/* this function says if a character colided with
 	 an object or multiple*/
-	//#pragma omp parallel for // that makes the program to split the for into sections and run them in parallel 
+	 //#pragma omp parallel for // that makes the program to split the for into sections and run them in parallel 
 	for (int i = 0; i < character->GetCurrentImage()->GetCollisonPixels()->size(); i++)
 	{
-		VisableObj *temp = Pixel_Colide(character, character->GetCurrentImage()->GetCollisonPixels()->at(i)[0],
-			character->GetCurrentImage()->GetCollisonPixels()->at(i)[1], all_objects,dst_x, dst_y);
+		VisableObj* temp = Pixel_Colide(character, character->GetCurrentImage()->GetCollisonPixels()->at(i)[0],
+			character->GetCurrentImage()->GetCollisonPixels()->at(i)[1], all_objects, dst_x, dst_y);
 		if (temp != nullptr) // checks if a real collison happend
 		{
 			bool is_colided = true;
@@ -56,33 +55,33 @@ void who_colided(Movable *character, vector<VisableObj*>* all_objects, vector<Vi
 	}
 }
 
-void ActivateAffect(VisableObj* collision_object, Movable* colided_object)
+void Game::ActivateAffect(VisableObj* collision_object, Movable* colided_object)
 {
-	for(int i = 0; i< collision_object->GetAniStarters()->size(); i++)
+	for (int i = 0; i < collision_object->GetAniStarters()->size(); i++)
 	{
-		for(int j = 0; j < colided_object->GetAnimations()->size(); j++)
+		for (int j = 0; j < colided_object->GetAnimations()->size(); j++)
 		{
 			if (collision_object->GetAniStarters()->at(i) == colided_object->GetAnimations()->at(j)->GetName())
 			{
 				colided_object->ActivateAnimation(colided_object->GetAnimations()->at(j));
 			}
-				
+
 		}
 	}
 }
 
-void Damage(VisableObj* collision_object, Movable* colided_object)
+void Game::Damage(VisableObj* collision_object, Movable* colided_object)
 {
 	colided_object->SetHealth(colided_object->GetHealth() - collision_object->GetDamage());
 
 }
 
-void collision(vector<VisableObj*>*all_objects, vector<Movable*>* movablechars, vector<VisableObj*> *colided)
+void Game::collision(vector<VisableObj*>* all_objects, vector<Movable*>* movablechars, vector<VisableObj*>* colided)
 {
 	// this function checks where can the object go and move it according to that
 	for (int i = 0; i < movablechars->size(); i++)
 	{
-			
+
 		int temp_x = movablechars->at(i)->GetDst()->x;
 		int temp_y = movablechars->at(i)->GetDst()->y;
 		vector<VisableObj*>* keep_colide = new vector<VisableObj*>(0);
@@ -91,7 +90,7 @@ void collision(vector<VisableObj*>*all_objects, vector<Movable*>* movablechars, 
 			who_colided(movablechars->at(i), all_objects, colided, temp_x, temp_y);
 			if (colided->size() > 0)
 			{
-				for(int j = 0; j < colided->size(); j++)
+				for (int j = 0; j < colided->size(); j++)
 				{
 					keep_colide->push_back(colided->at(j));
 				}
@@ -115,7 +114,7 @@ void collision(vector<VisableObj*>*all_objects, vector<Movable*>* movablechars, 
 						movablechars->at(i)->SetForce(0, movablechars->at(i)->GetForce()->second);
 						movablechars->at(i)->SetSpeed(0, movablechars->at(i)->GetSpeed()->second);
 						movablechars->at(i)->SetDst(movablechars->at(i)->GetInfo()->y, temp_x);
-					}		
+					}
 				}
 				else
 				{
@@ -130,7 +129,7 @@ void collision(vector<VisableObj*>*all_objects, vector<Movable*>* movablechars, 
 			{
 				movablechars->at(i)->Air(true);
 			}
-			for(int j = 0; j < keep_colide->size(); j++)
+			for (int j = 0; j < keep_colide->size(); j++)
 			{
 				ActivateAffect(keep_colide->at(j), movablechars->at(i));
 				Damage(keep_colide->at(j), movablechars->at(i));
