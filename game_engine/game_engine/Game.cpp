@@ -30,30 +30,30 @@ void Game::init(const char* title, int width, int height, bool fullscreen, int g
 	}
 }
 
-void Game::handleEvents(vector<Movable*> *movobj)
+void Game::handleEvents(vector<Movable*>* movobj)
 {
 	//check if a event happens and inputs it to the iput handler	
 	SDL_Event event;
 	int lastcode = -1;
 	while (SDL_PollEvent(&event))
 	{
-		switch(event.type)
+		switch (event.type)
 		{
-			case(SDL_QUIT):
-			{
-				isRunning = false;
-				break;
-			}
-			case(SDL_KEYDOWN):
-			{
-				int lastcode = event.key.keysym.scancode;
+		case(SDL_QUIT):
+		{
+			isRunning = false;
+			break;
+		}
+		case(SDL_KEYDOWN):
+		{
+			int lastcode = event.key.keysym.scancode;
+			this->KeyInput.SetState(event.key.keysym.scancode, event.key.state);
+		}
+		case(SDL_KEYUP):
+		{
+			if (lastcode != event.key.keysym.scancode)
 				this->KeyInput.SetState(event.key.keysym.scancode, event.key.state);
-			}
-			case(SDL_KEYUP):
-			{
-				if (lastcode != event.key.keysym.scancode)
-					this->KeyInput.SetState(event.key.keysym.scancode, event.key.state);
-			}
+		}
 		}
 	}
 	for (int i = 0; i < this->KeyInput.GetKeys()->size(); i++)
@@ -62,7 +62,7 @@ void Game::handleEvents(vector<Movable*> *movobj)
 		{
 			for (int j = 0; j < movobj->size(); j++)
 			{
-				if(!movobj->at(j)->InAir())
+				if (!movobj->at(j)->InAir())
 					movobj->at(j)->TriggerAnimation(i);
 
 			}
@@ -70,7 +70,7 @@ void Game::handleEvents(vector<Movable*> *movobj)
 		}
 	}
 	//updating all the movable objects
-	for(int i = 0; i < movobj->size(); i++)
+	for (int i = 0; i < movobj->size(); i++)
 	{
 		movobj->at(i)->ContinueAnimation();
 		movobj->at(i)->SetForce(movobj->at(i)->GetForce()->first + 1, movobj->at(i)->GetForce()->second);
@@ -81,7 +81,7 @@ void Game::handleEvents(vector<Movable*> *movobj)
 }
 
 
-void Game::render(vector<Movable*>*canmove, vector<VisableObj*>* stationary)
+void Game::render(vector<Movable*>* canmove, vector<VisableObj*>* stationary)
 {
 	//showing on screen all objects
 	SDL_RenderClear(renderer);
@@ -113,4 +113,3 @@ void Game::clean()
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
 }
-

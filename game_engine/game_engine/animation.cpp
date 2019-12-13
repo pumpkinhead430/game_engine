@@ -35,7 +35,9 @@ bool animation::DefultAnimation()
 bool animation::EndOfAnimation()
 {//returns if the animation has ended or not
 	if((int)this->frames->size() == this->index + 1)
+	{
 		return true;
+	}
 	return false;
 }
 

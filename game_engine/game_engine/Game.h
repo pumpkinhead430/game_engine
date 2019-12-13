@@ -20,17 +20,16 @@ public:
 	void ActivateAffect(VisableObj* collision_object, Movable* colided_object);
 	void Damage(VisableObj* collision_object, Movable* colided_object);
 	void collision(vector<VisableObj*>* all_objects, vector<Movable*>* movablechars, vector<VisableObj*>* colided);
-	void handleEvents(vector<Movable*> *movobj);
+	void handleEvents(vector<Movable*>* movobj);
 	bool running();
 	void render(vector<Movable*>* Torender, vector<VisableObj*>* stationary);
 	void clean();
-	SDL_Renderer *GetRenderer();
+	SDL_Renderer* GetRenderer();
 
 private:
 	int gravity;
 	bool isRunning = false;
 	InputHandler KeyInput;
-	SDL_Window *window;
-	SDL_Renderer *renderer;
+	SDL_Window* window;
+	SDL_Renderer* renderer;
 };
-
