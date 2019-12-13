@@ -6,11 +6,11 @@ Game::Game()
 Game::~Game()
 {}
 
-void Game::init(const char* title, int width, int height, bool fullscreen)
+void Game::init(const char* title, int width, int height, bool fullscreen, int gravity)
 {
 	//initaing the game and everything in it
 	int flags = 0;
-
+	this->gravity = gravity;
 	if (fullscreen)
 	{
 		flags = SDL_WINDOW_FULLSCREEN;
@@ -37,7 +37,10 @@ void Game::handleEvents(vector<Movable*> *movobj)
 	{
 		movobj->at(i)->ContinueAnimation();
 		movobj->at(i)->AddSpeed();
+		movobj->at(i)->SetForce(movobj->at(i)->GetForce()->first + 1, movobj->at(i)->GetForce()->second);
 		movobj->at(i)->AddToPostion();
+		if(i == 0)
+			cout << movobj->at(i)->GetSpeed()->first << "\n";
 	}
 	//check if a event happens and inputs it to the iput handler	
 	SDL_Event event;

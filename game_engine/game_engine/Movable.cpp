@@ -77,12 +77,6 @@ void Movable::ContinueAnimation()
 	
 }
 
-bool Movable::InAir()
-{
-	return this->in_air;
-}
-
-
 
 void Movable::ActivateAnimation(animation* ani)
 {//strats the animation
@@ -129,15 +123,14 @@ void Movable::AddSpeed()
 
 void Movable::AddToPostion()
 {//adds to the postion
-	if (this->speed->first != 0)
-		this->in_air = true;
-	else
-		this->in_air = false;	
 	this->SetDst(this->dstpos->y + this->speed->first, this->dstpos->x + this->speed->second);
 	if (!this->in_air)
 		this->speed->second = 0;
 }
 //sets and gets
+bool Movable::InAir() { return this->in_air; }
+void Movable::Air(bool air) { this->in_air = air; }
+
 void Movable::SetSpeed(int ySpeed, int xSpeed)
 {
 	this->speed->first = ySpeed;

@@ -102,12 +102,14 @@ void collision(vector<VisableObj*>*all_objects, vector<Movable*>* movablechars, 
 					who_colided(movablechars->at(i), all_objects, colided, temp_x, movablechars->at(i)->GetInfo()->y);
 					if (colided->size() > 0)
 					{
+						movablechars->at(i)->Air(false);
 						movablechars->at(i)->SetForce(0, 0);
 						movablechars->at(i)->SetSpeed(0, 0);
 						movablechars->at(i)->SetDst(movablechars->at(i)->GetInfo()->y, movablechars->at(i)->GetInfo()->x);
 					}
 					else
 					{
+						movablechars->at(i)->Air(false);
 						colided->push_back(movablechars->at(i));
 						movablechars->at(i)->SetForce(0, movablechars->at(i)->GetForce()->second);
 						movablechars->at(i)->SetSpeed(0, movablechars->at(i)->GetSpeed()->second);
@@ -116,12 +118,16 @@ void collision(vector<VisableObj*>*all_objects, vector<Movable*>* movablechars, 
 				}
 				else
 				{
-					
+					movablechars->at(i)->Air(true);
 					movablechars->at(i)->SetForce(movablechars->at(i)->GetForce()->first, 0);
 					movablechars->at(i)->SetSpeed(movablechars->at(i)->GetSpeed()->first, 0);
 					movablechars->at(i)->SetDst(temp_y, movablechars->at(i)->GetInfo()->x);
 				}
 
+			}
+			else
+			{
+				movablechars->at(i)->Air(true);
 			}
 			for(int j = 0; j < keep_colide->size(); j++)
 			{
@@ -130,7 +136,6 @@ void collision(vector<VisableObj*>*all_objects, vector<Movable*>* movablechars, 
 			}
 			keep_colide->clear();
 			colided->clear();
-
 		}
 	}
 }

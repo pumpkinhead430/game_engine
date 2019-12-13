@@ -13,7 +13,7 @@ class Game
 public:
 	Game();
 	~Game();
-	void init(const char* title, int width, int height, bool fullscreen);
+	void init(const char* title, int width, int height, bool fullscreen, int gravity);
 	void handleEvents(vector<Movable*> *movobj);
 	bool running();
 	void render(vector<Movable*>* Torender, vector<VisableObj*>* stationary);
@@ -21,6 +21,7 @@ public:
 	SDL_Renderer *GetRenderer();
 
 private:
+	int gravity;
 	bool isRunning = false;
 	InputHandler KeyInput;
 	SDL_Window *window;

@@ -22,6 +22,7 @@ public:
 	void TriggerAnimation(int input);
 	void ContinueAnimation();
 	bool InAir();
+	void Air(bool air);
 	void AddSpeed();
 	void AddToPostion();
 	void AddForce(int forcey, int forcex);
