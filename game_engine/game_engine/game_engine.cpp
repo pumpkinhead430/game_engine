@@ -69,7 +69,7 @@ int main(int argc, char* args[])
 	// creating game and objects of the game
 	game = new Game();
 	game->init("hello", 1000, 1000, false, 1);
-	VisableObj* temp = new VisableObj( game->GetRenderer(), new vector<string>{ "jump", "help" },"assets/defult.png", 0, 500, 0);
+	VisableObj* temp = new VisableObj( game->GetRenderer(), new vector<string>{ "walk", "help" },"assets/defult.png", 0, 500, 0);
 	stationaryobjs->push_back(temp);
 	//-------------------------------------------
 	animation* defult = new animation(game->GetRenderer());

@@ -82,6 +82,7 @@ void collision(vector<VisableObj*>*all_objects, vector<Movable*>* movablechars, 
 	// this function checks where can the object go and move it according to that
 	for (int i = 0; i < movablechars->size(); i++)
 	{
+			
 		int temp_x = movablechars->at(i)->GetDst()->x;
 		int temp_y = movablechars->at(i)->GetDst()->y;
 		vector<VisableObj*>* keep_colide = new vector<VisableObj*>(0);

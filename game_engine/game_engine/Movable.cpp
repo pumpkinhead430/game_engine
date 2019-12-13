@@ -117,6 +117,7 @@ void Movable::AddSpeed()
 {//adding speed
 	this->speed->first += this->force->first;
 	this->speed->second += this->force->second;
+	cout << this->speed->first << ", " << this->speed->second << "\n";
 	this->force->first = 0;
 	this->force->second = 0;
 }
@@ -124,12 +125,15 @@ void Movable::AddSpeed()
 void Movable::AddToPostion()
 {//adds to the postion
 	this->SetDst(this->dstpos->y + this->speed->first, this->dstpos->x + this->speed->second);
-	if (!this->in_air)
-		this->speed->second = 0;
 }
 //sets and gets
 bool Movable::InAir() { return this->in_air; }
-void Movable::Air(bool air) { this->in_air = air; }
+void Movable::Air(bool air) 
+{
+	this->in_air = air; 
+	if (!this->in_air)
+		this->speed->second = 0;
+}
 
 void Movable::SetSpeed(int ySpeed, int xSpeed)
 {
