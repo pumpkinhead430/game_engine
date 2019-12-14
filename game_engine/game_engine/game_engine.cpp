@@ -12,7 +12,6 @@
 #include "Image.h"
 #include <chrono>
 #include "Stationary.h"
-//#include "CollisionFunctions.h"
 using namespace std;
 vector<Movable*>* movablechars = new vector<Movable*>(0);//all Movable objects
 vector<VisableObj*>* stationaryobjs = new vector<VisableObj*>(0);//all Stationary objects
