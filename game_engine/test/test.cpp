@@ -1,31 +1,32 @@
 // test.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
 #include <iostream>
+#include "rapidjson/document.h"
+#include "rapidjson/filereadstream.h"
+#include <rapidjson/istreamwrapper.h>
+#include <fstream>
+#include <cstdio>
+#include <vector>
+using namespace rapidjson;
+using namespace std;
 
-class A 
+int main(int argc, char* args[])
 {
-	A()
+	ifstream ifs("D:/test.json");
+	IStreamWrapper isw(ifs);
+	Document d;
+	d.ParseStream(isw);
+	assert(d.IsObject());
+	assert(d.HasMember("t"));
+	assert(d["t"].IsBool());
+	vector<int>* x = new vector<int>(0);
+	const Value& a = d["a"].GetArray();
+	for(SizeType i = 0; i < a.Size(); i++)
 	{
-		std::cout << "hi";
+		x->push_back(a[i].GetInt());
 	}
-};
-
-class B : public A
-{
-	B() : A()
-	{
-		std::cout << "nan";
-	}
-};
-
-class C : public A
-{
-
-};
-int main()
-{
-
+	for (int i = 0; i < x->size(); i++)
+		cout << x->at(i);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
