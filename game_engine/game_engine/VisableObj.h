@@ -25,6 +25,7 @@ public:
 	void SetXPos(int pos);
 	void SetYPos(int pos);
 	int GetId();
+	virtual string GetType();
 	int GetDamage();
 	void SetDamage(int damage);
 	vector<string>* GetAniStarters();

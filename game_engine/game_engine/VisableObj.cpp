@@ -24,6 +24,7 @@ VisableObj::VisableObj(SDL_Renderer* renderer, int x, int y)
 vector<string>* VisableObj::GetAniStarters(){ return this->curr_ani_start; }
 Image * VisableObj::GetCurrentImage() { return this->current_image; }
 int VisableObj::GetId() { return this->id; }
+string VisableObj::GetType(){ return "VisableObj"; }
 int VisableObj::GetDamage() { return this->current_damage; }
 void VisableObj::SetDamage(int damage) { this->current_damage = damage; }
 SDL_Rect* VisableObj::GetInfo() { return this->image_info; }

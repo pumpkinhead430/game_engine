@@ -16,8 +16,11 @@ Movable::Movable(SDL_Renderer* renderer, int health,int x, int y, vector<animati
 		if(this->animations->at(i)->DefultAnimation())
 		{
 			ChangeAnimation(this->animations->at(i));
+			break;
 		}
 	}
+	if (this->currani == nullptr)
+		ChangeAnimation(this->animations->at(0));
 	this->speed->first = 0;
 	this->force->first = 0;
 	this->speed->second = 0;
@@ -146,6 +149,10 @@ void Movable::SetDst(int y, int x)
 }
 void Movable::SetHealth(int health) { this->health = health; }
 int Movable::GetHealth() { return this->health; }
+string Movable::GetType()
+{
+	return "Movable";
+}
 void Movable::SetForce(int forcey, int forcex)
 {
 	this->force->first = forcey;

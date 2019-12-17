@@ -131,6 +131,14 @@ void Game::collision(vector<VisableObj*>* all_objects, vector<Movable*>* movable
 			}
 			for (int j = 0; j < keep_colide->size(); j++)
 			{
+				//cout << keep_colide->at(j)->GetId() << "\n";
+				Movable* temp = dynamic_cast<Movable*>(keep_colide->at(j));
+				//cout << temp << "\n";
+				if(temp)
+				{
+					ActivateAffect(movablechars->at(i), temp);
+				}
+					
 				ActivateAffect(keep_colide->at(j), movablechars->at(i));
 				Damage(keep_colide->at(j), movablechars->at(i));
 			}

@@ -30,6 +30,7 @@ public:
 	void SetDst(int y, int x);
 	void SetHealth(int health);
 	int GetHealth();
+	string GetType();
 	pair<int, int>* GetForce();
 	vector<animation*>* GetAnimations();
 	void SetForce(int forcey, int forcex);

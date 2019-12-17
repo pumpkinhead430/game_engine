@@ -64,7 +64,7 @@ void SetUp()
 int main(int argc, char* args[])
 {
 	// limiting frames per second
-	const int FPS = 30;
+	const int FPS = 60;
 	const int frameDealy = 1000 / FPS;
 	Uint32 framestart;
 	Uint32 frametime;
@@ -72,7 +72,7 @@ int main(int argc, char* args[])
 	// creating game and objects of the game
 	game = new Game();
 	game->init("hello", 1000, 1000, false,"assets/Broken.jpg",1);
-	VisableObj* temp = new VisableObj(game->GetRenderer(), new vector<string>{ "jump", "help" }, "assets/defult.png", 0, 500, 3);
+	VisableObj* temp = new VisableObj(game->GetRenderer(), new vector<string>{ "", "" }, "assets/defult.png", 0, 500, 0);
 	stationaryobjs->push_back(temp);
 	//-------------------------------------------
 	animation* defult = new animation(game->GetRenderer());
@@ -84,7 +84,7 @@ int main(int argc, char* args[])
 	frames1->push_back(new Image("assets/UserR.bmp", game->GetRenderer()));
 	frames1->push_back(new Image("assets/UserWalR.bmp", game->GetRenderer()));
 	//frames1->push_back(new Image("assets/BarrelA.bmp", game->GetRenderer()));
-	animation* mov1 = new animation(3, SDL_GetScancodeFromName("d"), 0, 1, "walk", new vector<string>{ "jump", "help" }, frames1);
+	animation* mov1 = new animation(3, SDL_GetScancodeFromName("d"), 0, 1, "walk", new vector<string>{ "MoveRight", "MoveRight" }, frames1);
 	vector <animation*>* animations = new vector<animation*>(0);
 	animations->push_back(defult);
 	animations->push_back(mov);
@@ -105,9 +105,16 @@ int main(int argc, char* args[])
 	animations1->push_back(defult1);
 	animations1->push_back(mov2);
 	animations1->push_back(mov3);
+
+	vector<Image*>* frames4 = new vector<Image*>(0);
+	frames4->push_back(new Image("assets/defult.png", game->GetRenderer()));
+	animation* mov4 = new animation(0, -2, 0, 1, "MoveRight", new vector<string>{ "", "" }, frames4);
+	vector <animation*>* animations2 = new vector<animation*>(0);
+	animations2->push_back(mov4);
 	//-------------------------------------------
 	movablechars->push_back(&Movable(game->GetRenderer(), 100, 15, 0, animations));
 	movablechars->push_back(&Movable(game->GetRenderer(), 100,0, 30, animations1));
+	movablechars->push_back(&Movable(game->GetRenderer(), 100, 30, 60, animations2));
 	SetUp();
 	while (game->running())
 	{
@@ -124,7 +131,7 @@ int main(int argc, char* args[])
 		}
 		auto t2 = std::chrono::high_resolution_clock::now();
 		auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
-		std::cout << "\n" <<   (int)((double)1 / (duration * pow(10,-9)));
+		//std::cout << "\n" <<   (int)((double)1 / (duration * pow(10,-9)));
 	}
 	game->clean();
 	return 0;
