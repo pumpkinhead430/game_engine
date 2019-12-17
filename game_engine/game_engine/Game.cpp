@@ -6,7 +6,7 @@ Game::Game()
 Game::~Game()
 {}
 
-void Game::init(const char* title, int width, int height, bool fullscreen, int gravity)
+void Game::init(const char* title, int width, int height, bool fullscreen, string background_path,int gravity)
 {
 	//initaing the game and everything in it
 	int flags = 0;
@@ -18,14 +18,18 @@ void Game::init(const char* title, int width, int height, bool fullscreen, int g
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{
-		KeyInput = InputHandler();
-		window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
-		renderer = SDL_CreateRenderer(window, -1, 0);
+		this->KeyInput = InputHandler();
+		this->window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
+		this->renderer = SDL_CreateRenderer(window, -1, 0);
 		if (renderer)
 		{
 			SDL_SetRenderDrawColor(renderer, 255, 0, 0, 0);
 		}
-
+		this->background = new Image(background_path, this->renderer);
+		this->background_rect->x = 0;
+		this->background_rect->y = 0;
+		this->background_rect->h = this->background->height;
+		this->background_rect->w = this->background->width;
 		isRunning = true;
 	}
 }
@@ -85,6 +89,7 @@ void Game::render(vector<Movable*>* canmove, vector<VisableObj*>* stationary)
 {
 	//showing on screen all objects
 	SDL_RenderClear(renderer);
+	SDL_RenderCopy(this->renderer, this->background->GetImage(), NULL, this->background_rect);
 	for (int i = 0; i < canmove->size(); i++)
 	{
 		SDL_RenderCopy(this->renderer, canmove->at(i)->GetCurrentImage()->GetImage(), NULL, canmove->at(i)->GetInfo());

@@ -3,6 +3,7 @@
 #include <vector>
 #include "SDL.h"
 #include "SDL_image.h"
+#include "Image.h"
 #include "VisableObj.h"
 #include "Stationary.h"
 #include "Movable.h"
@@ -14,7 +15,7 @@ class Game
 public:
 	Game();
 	~Game();
-	void init(const char* title, int width, int height, bool fullscreen, int gravity);
+	void init(const char* title, int width, int height, bool fullscreen, string background_path, int gravity);
 	VisableObj* Pixel_Colide(Movable* character, int i, int j, vector<VisableObj*>* all_objects, int dst_x, int dst_y);
 	void who_colided(Movable* character, vector<VisableObj*>* all_objects, vector<VisableObj*>* colided, int dst_x, int dst_y);
 	void ActivateAffect(VisableObj* collision_object, Movable* colided_object);
@@ -28,6 +29,8 @@ public:
 
 private:
 	int gravity;
+	Image *background;
+	SDL_Rect* background_rect = new SDL_Rect();
 	bool isRunning = false;
 	InputHandler KeyInput;
 	SDL_Window* window;

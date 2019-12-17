@@ -64,14 +64,14 @@ void SetUp()
 int main(int argc, char* args[])
 {
 	// limiting frames per second
-	const int FPS = 60;
+	const int FPS = 30;
 	const int frameDealy = 1000 / FPS;
 	Uint32 framestart;
 	Uint32 frametime;
 	//
 	// creating game and objects of the game
 	game = new Game();
-	game->init("hello", 1000, 1000, false, 1);
+	game->init("hello", 1000, 1000, false,"assets/Broken.jpg",1);
 	VisableObj* temp = new VisableObj(game->GetRenderer(), new vector<string>{ "jump", "help" }, "assets/defult.png", 0, 500, 3);
 	stationaryobjs->push_back(temp);
 	//-------------------------------------------
@@ -124,7 +124,7 @@ int main(int argc, char* args[])
 		}
 		auto t2 = std::chrono::high_resolution_clock::now();
 		auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
-		//std::cout << "\n" << duration * pow(10,-9);
+		std::cout << "\n" <<   (int)((double)1 / (duration * pow(10,-9)));
 	}
 	game->clean();
 	return 0;

@@ -117,7 +117,6 @@ void Movable::AddSpeed()
 {//adding speed
 	this->speed->first += this->force->first;
 	this->speed->second += this->force->second;
-	cout << this->speed->first << ", " << this->speed->second << "\n";
 	this->force->first = 0;
 	this->force->second = 0;
 }
