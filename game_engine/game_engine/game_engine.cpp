@@ -13,53 +13,8 @@
 #include <chrono>
 #include "Stationary.h"
 using namespace std;
-vector<Movable*>* movablechars = new vector<Movable*>(0);//all Movable objects
-vector<VisableObj*>* stationaryobjs = new vector<VisableObj*>(0);//all Stationary objects
-vector<VisableObj*>* all_objects = new vector<VisableObj*>(0);//all visable objects
-vector<VisableObj*>* colided = new vector<VisableObj*>(0);// all colided objects
-vector<Movable*>* dead = new vector<Movable*>(0);
 Game* game = nullptr;
 
-bool IsDead(VisableObj* object)
-{
-	for (int i = 0; i < dead->size(); i++)
-	{
-		if (dead->at(i) == object)
-			return true;
-	}
-	return false;
-}
-
-void GetDead(vector<Movable*>* dead)
-{
-	for (int i = 0; i < movablechars->size(); i++)
-	{
-		if (movablechars->at(i)->GetHealth() <= 0)
-		{
-			dead->push_back(movablechars->at(i));
-			for(int j = 0; j < all_objects->size(); j++)
-				if(all_objects->at(j) == movablechars->at(i))
-					all_objects->erase(remove(all_objects->begin(), all_objects->end(), all_objects->at(j)), all_objects->end());
-			movablechars->erase(remove(movablechars->begin(), movablechars->end(), movablechars->at(i)), movablechars->end());
-
-		}
-	}
-}
-
-void SetUp()
-{
-	/* this function will start the main game loop
-	   and will prepare all of the objects ready for the game */
-
-	for (int i = 0; i < stationaryobjs->size(); i++)
-	{
-		all_objects->push_back(stationaryobjs->at(i));
-	}
-	for (int i = 0; i < movablechars->size(); i++)
-	{
-		all_objects->push_back(movablechars->at(i));
-	}
-}
 
 int main(int argc, char* args[])
 {
@@ -72,58 +27,14 @@ int main(int argc, char* args[])
 	// creating game and objects of the game
 	game = new Game();
 	game->init("hello", 1000, 1000, false,"assets/Broken.jpg",1);
-	VisableObj* temp = new VisableObj(game->GetRenderer(), new vector<string>{ "", "" }, "assets/defult.png", 0, 500, 0);
-	stationaryobjs->push_back(temp);
-	//-------------------------------------------
-	animation* defult = new animation(game->GetRenderer());
-	vector<Image*>* frames = new vector<Image*>(0);
-	frames->push_back(new Image("assets/UserR.bmp", game->GetRenderer()));
-	frames->push_back(new Image("assets/UserWalR.bmp", game->GetRenderer()));
-	animation* mov = new animation(3, SDL_GetScancodeFromName("s"), -10, 0, "jump", new vector<string>{ "jump", "help" }, frames);
-	vector<Image*>* frames1 = new vector<Image*>(0);//setting first movable object
-	frames1->push_back(new Image("assets/UserR.bmp", game->GetRenderer()));
-	frames1->push_back(new Image("assets/UserWalR.bmp", game->GetRenderer()));
-	//frames1->push_back(new Image("assets/BarrelA.bmp", game->GetRenderer()));
-	animation* mov1 = new animation(3, SDL_GetScancodeFromName("d"), 0, 1, "walk", new vector<string>{ "MoveRight", "MoveRight" }, frames1);
-	vector <animation*>* animations = new vector<animation*>(0);
-	animations->push_back(defult);
-	animations->push_back(mov);
-	animations->push_back(mov1);
-	//-------------------------------------------
-	//-------------------------------------------
-	animation* defult1 = new animation(game->GetRenderer());
-	vector<Image*>* frames2 = new vector<Image*>(0);
-	frames2->push_back(new Image("assets/UserR.bmp", game->GetRenderer()));
-	frames2->push_back(new Image("assets/UserWalR.bmp", game->GetRenderer()));
-	animation* mov2 = new animation(3, SDL_GetScancodeFromName("w"), 0, 1, "walk", new vector<string>{ "jump", "help" }, frames2);
-	vector<Image*>* frames3 = new vector<Image*>(0); //setting second movable object
-	frames3->push_back(new Image("assets/trans_cubes.png", game->GetRenderer()));
-	frames3->push_back(new Image("assets/line.png", game->GetRenderer()));
-	frames3->push_back(new Image("assets/BarrelA.bmp", game->GetRenderer()));
-	animation* mov3 = new animation(3, SDL_SCANCODE_SPACE, -5, 0, "jump", new vector<string>{ "jump", "help" }, frames3);
-	vector <animation*>* animations1 = new vector<animation*>(0);
-	animations1->push_back(defult1);
-	animations1->push_back(mov2);
-	animations1->push_back(mov3);
-
-	vector<Image*>* frames4 = new vector<Image*>(0);
-	frames4->push_back(new Image("assets/defult.png", game->GetRenderer()));
-	animation* mov4 = new animation(0, -2, 0, 1, "MoveRight", new vector<string>{ "", "" }, frames4);
-	vector <animation*>* animations2 = new vector<animation*>(0);
-	animations2->push_back(mov4);
-	//-------------------------------------------
-	movablechars->push_back(&Movable(game->GetRenderer(), 100, 15, 0, animations));
-	movablechars->push_back(&Movable(game->GetRenderer(), 100,0, 30, animations1));
-	movablechars->push_back(&Movable(game->GetRenderer(), 100, 30, 60, animations2));
-	SetUp();
 	while (game->running())
 	{
 		auto t1 = std::chrono::high_resolution_clock::now();
 		framestart = SDL_GetTicks();
-		game->handleEvents(movablechars);
-		game->collision(all_objects, movablechars, colided);
-		GetDead(dead);
-		game->render(movablechars, stationaryobjs);
+		game->handleEvents();
+		game->collision();
+		game->GetDead();
+		game->render();
 		frametime = SDL_GetTicks() - framestart;
 		if (frameDealy > frametime)
 		{
@@ -131,7 +42,7 @@ int main(int argc, char* args[])
 		}
 		auto t2 = std::chrono::high_resolution_clock::now();
 		auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
-		//std::cout << "\n" <<   (int)((double)1 / (duration * pow(10,-9)));
+		std::cout << "\n" <<   (int)((double)1 / (duration * pow(10,-9)));
 	}
 	game->clean();
 	return 0;

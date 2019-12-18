@@ -59,6 +59,7 @@ void Game::ActivateAffect(VisableObj* collision_object, Movable* colided_object)
 {
 	for (int i = 0; i < collision_object->GetAniStarters()->size(); i++)
 	{
+		//cout << collision_object->GetAniStarters()->at(i) << "\n";
 		for (int j = 0; j < colided_object->GetAnimations()->size(); j++)
 		{
 			if (collision_object->GetAniStarters()->at(i) == colided_object->GetAnimations()->at(j)->GetName())
@@ -76,7 +77,7 @@ void Game::Damage(VisableObj* collision_object, Movable* colided_object)
 
 }
 
-void Game::collision(vector<VisableObj*>* all_objects, vector<Movable*>* movablechars, vector<VisableObj*>* colided)
+void Game::collision()
 {
 	// this function checks where can the object go and move it according to that
 	for (int i = 0; i < movablechars->size(); i++)
@@ -136,7 +137,7 @@ void Game::collision(vector<VisableObj*>* all_objects, vector<Movable*>* movable
 				//cout << temp << "\n";
 				if(temp)
 				{
-					ActivateAffect(movablechars->at(i), temp);
+					ActivateAffect(static_cast<VisableObj*>(movablechars->at(i)), temp);
 				}
 					
 				ActivateAffect(keep_colide->at(j), movablechars->at(i));

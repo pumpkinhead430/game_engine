@@ -85,9 +85,7 @@ void Movable::ActivateAnimation(animation* ani)
 {//strats the animation
 	if (this->currani->DefultAnimation())
 	{
-		this->currani = ani;
-		this->currani->SetIndex(0);
-		ChangeCurrentImage(this->currani->GetImage(this->currani->GetIndex()));
+		this->ChangeAnimation(ani);
 	}
 	int forcey = ani->GetForce()->first;
 	int forcex = ani->GetForce()->second;
@@ -149,10 +147,7 @@ void Movable::SetDst(int y, int x)
 }
 void Movable::SetHealth(int health) { this->health = health; }
 int Movable::GetHealth() { return this->health; }
-string Movable::GetType()
-{
-	return "Movable";
-}
+string Movable::GetType(){ return "Movable"; }
 void Movable::SetForce(int forcey, int forcex)
 {
 	this->force->first = forcey;
@@ -160,10 +155,7 @@ void Movable::SetForce(int forcey, int forcex)
 }
 SDL_Rect* Movable::GetDst() { return this->dstpos; }
 pair<int, int>* Movable::GetForce() { return this->force; }
-vector<animation*>* Movable::GetAnimations()
-{
-	return this->animations;
-}
+vector<animation*>* Movable::GetAnimations(){ return this->animations; }
 pair<int, int>* Movable::GetSpeed(){ return this->speed; }
 Movable::~Movable()
 {
