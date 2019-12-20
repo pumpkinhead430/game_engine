@@ -4,12 +4,18 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "Image.h"
+#include <rapidjson/document.h>
+#include <rapidjson/filereadstream.h>
+#include <rapidjson/istreamwrapper.h>
+#include <fstream>
 #include "VisableObj.h"
 #include "Stationary.h"
+#include "animation.h"
 #include "Movable.h"
 //#include "CollisionFunctions.h"
 #include "InputHandler.h"
 using namespace std;
+using namespace rapidjson;
 class Game
 {
 public:
@@ -31,6 +37,8 @@ public:
 
 private:
 	void SetUp();
+	animation* GetAnimationJson(const Value& obj);
+	Movable* GetMovableJson(const Value& obj);
 	int gravity;
 	Image *background;
 	SDL_Rect* background_rect = new SDL_Rect();

@@ -42,7 +42,7 @@ int main(int argc, char* args[])
 		}
 		auto t2 = std::chrono::high_resolution_clock::now();
 		auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
-		std::cout << "\n" <<   (int)((double)1 / (duration * pow(10,-9)));
+		//std::cout << "\n" <<   (int)((double)1 / (duration * pow(10,-9)));
 	}
 	game->clean();
 	return 0;

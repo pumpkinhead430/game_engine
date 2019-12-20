@@ -64,6 +64,7 @@ void Game::ActivateAffect(VisableObj* collision_object, Movable* colided_object)
 		{
 			if (collision_object->GetAniStarters()->at(i) == colided_object->GetAnimations()->at(j)->GetName())
 			{
+				
 				colided_object->ActivateAnimation(colided_object->GetAnimations()->at(j));
 			}
 

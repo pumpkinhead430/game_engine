@@ -63,18 +63,19 @@ void enter(const Value& obj, size_t indent = 0) { //print JSON tree
     }
 }
 
-void SetUp(const Value& obj)
+void SetUp(const Value& obj, string current_name, int index)
 {
     if (obj.IsObject()) { //check if object
         for (Value::ConstMemberIterator itr = obj.MemberBegin(); itr != obj.MemberEnd(); ++itr) {   //iterate through object   
-            SetUp(obj[itr->name.GetString()]);
+            SetUp(obj[itr->name.GetString()], itr->name.GetString(), 0);
         }
     }
     if (obj.IsArray())
     {
         for (SizeType i = 0; i < obj.Size(); i++)
         {
-            SetUp(obj[i]);
+            cout << current_name << i << "\n";
+            SetUp(obj[i], current_name, i);
         }
     }
     if (obj.IsString())
@@ -94,11 +95,11 @@ int main()
     //const Value& a = d["audios"];
     //vector<int>* x = new vector<int>(0);
     //if (a.IsArray())
-    const Value& a = document["Movable"];
+    const Value& a = document["Movables"];
     assert(a.IsArray());
     for (SizeType i = 0; i < a.Size(); i++)
     {
-        SetUp(a[i]);
+        SetUp(a[i], "Movables", i);
     } 
     return 0;
 }
