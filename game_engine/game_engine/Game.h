@@ -19,9 +19,8 @@ using namespace rapidjson;
 class Game
 {
 public:
-	Game();
+	Game(const char* title, int width, int height, bool fullscreen, string background_path, int gravity);
 	~Game();
-	void init(const char* title, int width, int height, bool fullscreen, string background_path, int gravity);
 	VisableObj* Pixel_Colide(Movable* character, int i, int j, vector<VisableObj*>* all_objects, int dst_x, int dst_y);
 	void who_colided(Movable* character, vector<VisableObj*>* all_objects, vector<VisableObj*>* colided, int dst_x, int dst_y);
 	void ActivateAffect(VisableObj* collision_object, Movable* colided_object);
@@ -39,6 +38,7 @@ private:
 	void SetUp();
 	animation* GetAnimationJson(const Value& obj);
 	Movable* GetMovableJson(const Value& obj);
+	VisableObj* GetStationaryJson(const Value& obj);
 	int gravity;
 	Image *background;
 	SDL_Rect* background_rect = new SDL_Rect();

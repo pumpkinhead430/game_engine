@@ -1,12 +1,7 @@
 #include "pch.h"
 #include "Game.h"
-Game::Game()
-{}
 
-Game::~Game()
-{}
-
-void Game::init(const char* title, int width, int height, bool fullscreen, string background_path,int gravity)
+Game::Game(const char* title, int width, int height, bool fullscreen, string background_path, int gravity)
 {
 	//initaing the game and everything in it
 	int flags = 0;
@@ -34,6 +29,10 @@ void Game::init(const char* title, int width, int height, bool fullscreen, strin
 	}
 	this->SetUp();
 }
+
+Game::~Game()
+{}
+
 
 void Game::handleEvents()
 {
@@ -78,7 +77,8 @@ void Game::handleEvents()
 	for (int i = 0; i < this->movablechars->size(); i++)
 	{
 		this->movablechars->at(i)->ContinueAnimation();
-		this->movablechars->at(i)->SetForce(this->movablechars->at(i)->GetForce()->first + 1, this->movablechars->at(i)->GetForce()->second);
+		this->movablechars->at(i)->SetForce(this->movablechars->at(i)->GetForce()->first + this->gravity,
+			                                this->movablechars->at(i)->GetForce()->second);
 		this->movablechars->at(i)->AddSpeed();
 		this->movablechars->at(i)->AddToPostion();
 	}
@@ -129,7 +129,6 @@ void Game::GetDead()
 		}
 	}
 }
-
 
 
 

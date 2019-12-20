@@ -7,14 +7,56 @@
 #include <vector>
 #include <tuple>
 #include <string>
-#include "Game.h"
-#include "Movable.h"
-#include "Image.h"
 #include <chrono>
+#include "Image.h"
+#include "Movable.h"
 #include "Stationary.h"
+#include "Game.h"
+#include <rapidjson/document.h>
+#include <rapidjson/filereadstream.h>
+#include <rapidjson/istreamwrapper.h>
 using namespace std;
+using namespace rapidjson;
 Game* game = nullptr;
 
+
+Game*CreateGame(const Value& GameObject)
+{
+	int gravity = 0;
+	int width = 10;
+	int height = 10;
+	const char* back_ground = "";
+	bool fullscreen = false;
+	const char* title = "";
+	if (GameObject.IsObject())
+	{ //check if object
+		for (Value::ConstMemberIterator member = GameObject.MemberBegin(); member != GameObject.MemberEnd(); ++member)
+		{   //iterate through object
+			string nameOfmember = member->name.GetString();
+			if (nameOfmember == "gravity")
+				gravity = GameObject[member->name.GetString()].GetInt();
+
+			if (nameOfmember == "width")
+				width = GameObject[member->name.GetString()].GetInt();
+
+			if (nameOfmember == "height")
+				height = GameObject[member->name.GetString()].GetInt();
+
+			if (nameOfmember == "background")
+				back_ground = GameObject[member->name.GetString()].GetString();
+
+			if (nameOfmember == "title")
+				title = GameObject[member->name.GetString()].GetString();
+
+			if (nameOfmember == "fullscreen")
+				fullscreen = GameObject[member->name.GetString()].GetBool();
+
+			if (nameOfmember == "defult")
+				return new Game("hello", 1000, 1000, false, "assets/defult.png", 1);
+		}
+	}
+	return new Game(title,width, height, fullscreen, back_ground, gravity);
+}
 
 int main(int argc, char* args[])
 {
@@ -25,8 +67,11 @@ int main(int argc, char* args[])
 	Uint32 frametime;
 	//
 	// creating game and objects of the game
-	game = new Game();
-	game->init("hello", 1000, 1000, false,"assets/Broken.jpg",1);
+	ifstream ifs("assets/GameData.json");
+	IStreamWrapper isw(ifs);
+	Document document;
+	document.ParseStream(isw);
+	game = CreateGame(document);
 	while (game->running())
 	{
 		auto t1 = std::chrono::high_resolution_clock::now();
@@ -42,7 +87,7 @@ int main(int argc, char* args[])
 		}
 		auto t2 = std::chrono::high_resolution_clock::now();
 		auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
-		//std::cout << "\n" <<   (int)((double)1 / (duration * pow(10,-9)));
+		std::cout << "\n" <<   (int)((double)1 / (duration * pow(10,-9)));
 	}
 	game->clean();
 	return 0;

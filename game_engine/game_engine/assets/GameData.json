@@ -1,0 +1,8 @@
+{
+  "gravity": 1,
+  "width": 1000,
+  "height": 1000,
+  "background": "assets/Broken.jpg",
+  "fullscreen": true,
+  "title": "hello"
+}
