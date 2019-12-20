@@ -159,15 +159,15 @@ void Game::SetUp()
 	frames2->push_back(new Image("assets/UserWalR.bmp", this->renderer));
 	animation* mov2 = new animation(3, SDL_GetScancodeFromName("w"), 0, 1, "walk", new vector<string>{ "jump", "help" }, frames2);
 	vector<Image*>* frames3 = new vector<Image*>(0); //setting second movable object
-	frames3->push_back(new Image("assets/trans_cubes.png", this->renderer));
-	frames3->push_back(new Image("assets/line.png", this->renderer));
-	frames3->push_back(new Image("assets/BarrelA.bmp", this->renderer));
+	frames3->push_back(new Image("assets/UserR.bmp", this->renderer));
+	frames3->push_back(new Image("assets/UserWalR.bmp", this->renderer));
+	//frames3->push_back(new Image("assets/BarrelA.bmp", this->renderer));
 	animation* mov3 = new animation(3, SDL_SCANCODE_SPACE, -5, 0, "jump", new vector<string>{ "jump", "help" }, frames3);
 	vector <animation*>* animations1 = new vector<animation*>(0);
 	animations1->push_back(defult1);
 	animations1->push_back(mov2);
 	animations1->push_back(mov3);
-
+	//-------------------------------------------------
 	vector<Image*>* frames4 = new vector<Image*>(0);
 	frames4->push_back(new Image("assets/defult.png", this->renderer));
 	animation* mov4 = new animation(0, -2, 0, 1, "MoveRight", new vector<string>{ "", "" }, frames4);
