@@ -67,21 +67,7 @@ void SetUp(const Value& obj)
 {
     if (obj.IsObject()) { //check if object
         for (Value::ConstMemberIterator itr = obj.MemberBegin(); itr != obj.MemberEnd(); ++itr) {   //iterate through object   
-            if (obj[itr->name.GetString()].IsObject())
-                SetUp(obj[itr->name.GetString()]);
-            if(obj[itr->name.GetString()].IsArray())
-            {
-                for (SizeType i = 0; i < obj[itr->name.GetString()].Size(); i++)
-                {
-                    SetUp(obj[itr->name.GetString()][i]);
-                }
-            }
-            if (obj[itr->name.GetString()].IsString())
-                cout << obj[itr->name.GetString()].GetString() << "\n";
-            if (obj[itr->name.GetString()].IsBool())
-                cout << obj[itr->name.GetString()].GetBool() << "\n";
-            if (obj[itr->name.GetString()].IsInt())
-                cout << obj[itr->name.GetString()].GetInt() << "\n";
+            SetUp(obj[itr->name.GetString()]);
         }
     }
     if (obj.IsArray())
