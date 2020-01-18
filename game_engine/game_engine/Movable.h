@@ -10,14 +10,14 @@ private:
 	bool in_air;
 	pair<int, int>* speed = new pair<int, int>(0, 0);
 	pair<int, int>* force = new pair<int, int>(0, 0);
-	vector<animation*>*animations = new vector<animation*>(0);
+	vector<animation*>* animations = new vector<animation*>(0);
 	animation* currani = nullptr;
-	SDL_Rect *dstpos = new SDL_Rect();
+	SDL_Rect* dstpos = new SDL_Rect();
 	void ChangeCurrentImage(Image* image);
 	void ChangeAnimation(animation* ani);
 public:
-	Movable(SDL_Renderer* renderer, int health,int x, int y, vector<animation*>* animations);
-	Movable(SDL_Renderer* renderer, int health,int x, int y);
+	Movable(SDL_Renderer* renderer, int health, int x, int y, vector<animation*>* animations);
+	Movable(SDL_Renderer* renderer, int health, int x, int y);
 	void ActivateAnimation(animation* ani);
 	void TriggerAnimation(int input);
 	void ContinueAnimation();
@@ -35,7 +35,6 @@ public:
 	vector<animation*>* GetAnimations();
 	void SetForce(int forcey, int forcex);
 	pair<int, int>* GetSpeed();
-	SDL_Rect * GetDst();
+	SDL_Rect* GetDst();
 	~Movable();
 };
-

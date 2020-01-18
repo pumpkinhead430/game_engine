@@ -64,7 +64,7 @@ void Game::ActivateAffect(VisableObj* collision_object, Movable* colided_object)
 		{
 			if (collision_object->GetAniStarters()->at(i) == colided_object->GetAnimations()->at(j)->GetName())
 			{
-				
+
 				colided_object->ActivateAnimation(colided_object->GetAnimations()->at(j));
 			}
 
@@ -136,11 +136,11 @@ void Game::collision()
 				//cout << keep_colide->at(j)->GetId() << "\n";
 				Movable* temp = dynamic_cast<Movable*>(keep_colide->at(j));
 				//cout << temp << "\n";
-				if(temp)
+				if (temp)
 				{
 					ActivateAffect(static_cast<VisableObj*>(movablechars->at(i)), temp);
 				}
-					
+
 				ActivateAffect(keep_colide->at(j), movablechars->at(i));
 				Damage(keep_colide->at(j), movablechars->at(i));
 			}

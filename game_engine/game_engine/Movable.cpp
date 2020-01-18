@@ -2,7 +2,7 @@
 #include "Movable.h"
 
 
-Movable::Movable(SDL_Renderer* renderer, int health,int x, int y, vector<animation*>* animations) :VisableObj(renderer, x, y)
+Movable::Movable(SDL_Renderer* renderer, int health, int x, int y, vector<animation*>* animations) :VisableObj(renderer, x, y)
 {//setting the trigger which will be in animations in due time and setting defult all speed and force
 	this->in_air = false;
 	this->health = health;
@@ -11,9 +11,9 @@ Movable::Movable(SDL_Renderer* renderer, int health,int x, int y, vector<animati
 	this->dstpos->h = this->image_info->h;
 	this->dstpos->w = this->image_info->w;
 	this->animations = animations;
-	for(int i = 0; i< this->animations->size(); i ++)
+	for (int i = 0; i < this->animations->size(); i++)
 	{
-		if(this->animations->at(i)->DefultAnimation())
+		if (this->animations->at(i)->DefultAnimation())
 		{
 			ChangeAnimation(this->animations->at(i));
 			break;
@@ -46,7 +46,7 @@ Movable::Movable(SDL_Renderer* renderer, int health, int x, int y) :VisableObj(r
 //--------------------------------------
 void Movable::TriggerAnimation(int input)
 {//cheking if animtaion is triggered
-	for(int i = 0; i < this->animations->size(); i++)
+	for (int i = 0; i < this->animations->size(); i++)
 	{
 		if (this->animations->at(i)->IsTriggered(input))
 		{
@@ -61,7 +61,7 @@ void Movable::ContinueAnimation()
 {//continues current animation and brings it back to defult if animation ended
 	if (this->currani->EndOfAnimation())
 	{
-		this->currani->SetIndex(0);		
+		this->currani->SetIndex(0);
 		for (int i = 0; i < this->animations->size(); i++)
 		{
 			if (this->animations->at(i)->DefultAnimation())
@@ -77,7 +77,7 @@ void Movable::ContinueAnimation()
 		this->currani->SetIndex(this->currani->GetIndex() + 1);
 		ChangeCurrentImage(this->currani->GetImage(this->currani->GetIndex()));
 	}
-	
+
 }
 
 
@@ -89,7 +89,7 @@ void Movable::ActivateAnimation(animation* ani)
 	}
 	int forcey = ani->GetForce()->first;
 	int forcex = ani->GetForce()->second;
-	this->AddForce(forcey,forcex);
+	this->AddForce(forcey, forcex);
 }
 
 void Movable::ChangeCurrentImage(Image* image)
@@ -128,9 +128,9 @@ void Movable::AddToPostion()
 }
 //sets and gets
 bool Movable::InAir() { return this->in_air; }
-void Movable::Air(bool air) 
+void Movable::Air(bool air)
 {
-	this->in_air = air; 
+	this->in_air = air;
 	if (!this->in_air)
 		this->speed->second = 0;
 }
@@ -140,14 +140,14 @@ void Movable::SetSpeed(int ySpeed, int xSpeed)
 	this->speed->first = ySpeed;
 	this->speed->second = xSpeed;
 }
-void Movable::SetDst(int y, int x) 
+void Movable::SetDst(int y, int x)
 {
 	this->dstpos->x = x;
 	this->dstpos->y = y;
 }
 void Movable::SetHealth(int health) { this->health = health; }
 int Movable::GetHealth() { return this->health; }
-string Movable::GetType(){ return "Movable"; }
+string Movable::GetType() { return "Movable"; }
 void Movable::SetForce(int forcey, int forcex)
 {
 	this->force->first = forcey;
@@ -155,8 +155,8 @@ void Movable::SetForce(int forcey, int forcex)
 }
 SDL_Rect* Movable::GetDst() { return this->dstpos; }
 pair<int, int>* Movable::GetForce() { return this->force; }
-vector<animation*>* Movable::GetAnimations(){ return this->animations; }
-pair<int, int>* Movable::GetSpeed(){ return this->speed; }
+vector<animation*>* Movable::GetAnimations() { return this->animations; }
+pair<int, int>* Movable::GetSpeed() { return this->speed; }
 Movable::~Movable()
 {
 }

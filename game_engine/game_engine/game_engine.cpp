@@ -20,7 +20,7 @@ using namespace rapidjson;
 Game* game = nullptr;
 
 
-Game*CreateGame(const Value& GameObject)
+Game* CreateGame(const Value& GameObject)
 {
 	int gravity = 0;
 	int width = 10;
@@ -55,7 +55,7 @@ Game*CreateGame(const Value& GameObject)
 				return new Game("hello", 1000, 1000, false, "assets/defult.png", 1);
 		}
 	}
-	return new Game(title,width, height, fullscreen, back_ground, gravity);
+	return new Game(title, width, height, fullscreen, back_ground, gravity);
 }
 
 int main(int argc, char* args[])
@@ -87,7 +87,7 @@ int main(int argc, char* args[])
 		}
 		auto t2 = std::chrono::high_resolution_clock::now();
 		auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
-		std::cout << "\n" <<   (int)((double)1 / (duration * pow(10,-9)));
+		std::cout << "\n" << (int)((double)1 / (duration * pow(10, -9)));
 	}
 	game->clean();
 	return 0;

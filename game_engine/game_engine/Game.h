@@ -40,7 +40,7 @@ private:
 	Movable* GetMovableJson(const Value& obj);
 	VisableObj* GetStationaryJson(const Value& obj);
 	int gravity;
-	Image *background;
+	Image* background;
 	SDL_Rect* background_rect = new SDL_Rect();
 	vector<Movable*>* movablechars = new vector<Movable*>(0);//all Movable objects
 	vector<VisableObj*>* stationaryobjs = new vector<VisableObj*>(0);//all Stationary objects

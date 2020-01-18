@@ -78,7 +78,7 @@ void Game::handleEvents()
 	{
 		this->movablechars->at(i)->ContinueAnimation();
 		this->movablechars->at(i)->SetForce(this->movablechars->at(i)->GetForce()->first + this->gravity,
-			                                this->movablechars->at(i)->GetForce()->second);
+			this->movablechars->at(i)->GetForce()->second);
 		this->movablechars->at(i)->AddSpeed();
 		this->movablechars->at(i)->AddToPostion();
 	}
@@ -91,11 +91,11 @@ void Game::render()
 	//showing on screen all objects
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(this->renderer, this->background->GetImage(), NULL, this->background_rect);
-	for(int i = 0; i<this->all_objects->size(); i++)
+	for (int i = 0; i < this->all_objects->size(); i++)
 	{
 		SDL_RenderCopy(this->renderer, this->all_objects->at(i)->GetCurrentImage()->GetImage(), NULL, this->all_objects->at(i)->GetInfo());
 		Movable* temp = dynamic_cast<Movable*>(all_objects->at(i));
-		if(temp)
+		if (temp)
 		{
 			temp->SetXPos(temp->GetDst()->x);
 			temp->SetYPos(temp->GetDst()->y);

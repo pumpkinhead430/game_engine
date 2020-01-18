@@ -3,6 +3,6 @@
   "width": 1000,
   "height": 1000,
   "background": "assets/Broken.jpg",
-  "fullscreen": true,
+  "fullscreen": false,
   "title": "hello"
 }
