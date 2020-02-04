@@ -61,7 +61,7 @@ animation*Game::GetAnimationJson(const Value& obj)
 					ani_startes->push_back(temp);
 				}
 					
-			if (nameOfmember == "defult")
+			if (nameOfmember == "default")
 				return new animation(this->renderer);
 		}
 	}
@@ -92,7 +92,7 @@ Movable* Game::GetMovableJson(const Value& obj)
 				for (SizeType i = 0; i < obj[member->name.GetString()].Size(); i++)
 					animations->push_back(GetAnimationJson(obj[member->name.GetString()][i]));
 
-			if (nameOfmember == "defult")
+			if (nameOfmember == "default")
 				return new Movable(this->renderer, 10, 0, 0);
 		}
 	}
@@ -128,8 +128,8 @@ VisableObj* Game::GetStationaryJson(const Value& obj)
 					curr_ani_start->push_back(obj[member->name.GetString()][i].GetString());
 				}
 
-			if (nameOfmember == "defult")
-				return new VisableObj(this->renderer,new vector<string>(0), "assets/defult.png",0, 0, 0);
+			if (nameOfmember == "default")
+				return new VisableObj(this->renderer,new vector<string>(0), "assets/default.png",0, 0, 0);
 		}
 	}
 	return new VisableObj(this->renderer, curr_ani_start,path, x, y, damage);

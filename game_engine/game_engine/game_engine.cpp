@@ -51,8 +51,8 @@ Game* CreateGame(const Value& GameObject)
 			if (nameOfmember == "fullscreen")
 				fullscreen = GameObject[member->name.GetString()].GetBool();
 
-			if (nameOfmember == "defult")
-				return new Game("hello", 1000, 1000, false, "assets/defult.png", 1);
+			if (nameOfmember == "default")
+				return new Game("hello", 1000, 1000, false, "assets/default.png", 1);
 		}
 	}
 	return new Game(title, width, height, fullscreen, back_ground, gravity);

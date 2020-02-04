@@ -26,7 +26,7 @@ animation::animation(int damage, int trigger,int forcey, int forcex, string name
 
 
 bool animation::DefultAnimation()
-{//checks if this animation is the defult animation
+{//checks if this animation is the default animation
 	if (this->trigger == -1)
 		return true;
 	return false;

@@ -3,7 +3,7 @@
 
 
 Movable::Movable(SDL_Renderer* renderer, int health, int x, int y, vector<animation*>* animations) :VisableObj(renderer, x, y)
-{//setting the trigger which will be in animations in due time and setting defult all speed and force
+{//setting the trigger which will be in animations in due time and setting default all speed and force
 	this->in_air = false;
 	this->health = health;
 	this->dstpos->x = this->image_info->x;
@@ -28,7 +28,7 @@ Movable::Movable(SDL_Renderer* renderer, int health, int x, int y, vector<animat
 }
 
 Movable::Movable(SDL_Renderer* renderer, int health, int x, int y) :VisableObj(renderer, x, y)
-{//setting the trigger which will be in animations in due time and setting defult all speed and force
+{//setting the trigger which will be in animations in due time and setting default all speed and force
 	this->in_air = false;
 	this->health = health;
 	this->animations->push_back(new animation(renderer));
@@ -58,7 +58,7 @@ void Movable::TriggerAnimation(int input)
 
 
 void Movable::ContinueAnimation()
-{//continues current animation and brings it back to defult if animation ended
+{//continues current animation and brings it back to default if animation ended
 	if (this->currani->EndOfAnimation())
 	{
 		this->currani->SetIndex(0);
