@@ -12,13 +12,14 @@ animation::animation(SDL_Renderer* renderer)
 	this->damage = 0;
 }
 
-animation::animation(int damage, int trigger,int forcey, int forcex, string name, vector<string>* ani_starter,vector<Image*>* frames)
+animation::animation(int damage, int trigger,int forcey, int forcex, string name, vector<string>* ani_starter,vector<Image*>* frames, bool defaultAnimation)
 {
 	this->index = 0;
 	this->trigger = trigger;
 	this->force->first = forcey;
 	this->force->second = forcex;
 	this->name = name;
+	this->defaultAnimation = defaultAnimation;
 	this->ani_starter = ani_starter;
 	this->frames = frames;
 	this->damage = damage;

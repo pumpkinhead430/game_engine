@@ -14,9 +14,10 @@ private:
 	vector<string>* ani_starter = new vector<string>(0);
 	pair<int, int> *force = new pair<int, int>(0,0);
 	int damage;
+	bool defaultAnimation;
 public:
 	animation(SDL_Renderer* renderer);
-	animation(int damage, int trigger, int forcey, int forcex, string name, vector<string>* ani_starter, vector<Image*>* frames);
+	animation(int damage, int trigger, int forcey, int forcex, string name, vector<string>* ani_starter, vector<Image*>* frames, bool defaultAnimation);
 	Image* GetImage(int index);
 	bool DefultAnimation();
 	bool EndOfAnimation();

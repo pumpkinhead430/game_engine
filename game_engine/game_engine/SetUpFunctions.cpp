@@ -11,7 +11,7 @@ void Game::SetUp()
 	Document document;
 	document.ParseStream(isw);
 	const Value& movable_objs = document["Movables"];
-	const Value& stationary = document["stationeries"];
+	const Value& stationary = document["Stationers"];
 	for (int i = 0; i < stationary.Size(); i++)
 	{
 		this->stationaryobjs->push_back(GetStationaryJson(stationary[i]));
@@ -24,9 +24,10 @@ void Game::SetUp()
 	}
 }
 
-animation*Game::GetAnimationJson(const Value& obj)
+animation* Game::GetAnimationJson(const Value& obj)
 {
 	int damage = 0;
+	bool defaultAnimation = false;
 	int forcex = 0;
 	int forcey = 0;
 	int trigger = 0;
@@ -42,8 +43,11 @@ animation*Game::GetAnimationJson(const Value& obj)
 				damage = obj[member->name.GetString()].GetInt();
 			if (nameOfmember == "name")
 				name = obj[member->name.GetString()].GetString();
-			if (nameOfmember == "trigger")
-				trigger = obj[member->name.GetString()].GetInt();
+			if (nameOfmember == "trigger") {
+				const char* temp = "";
+				temp = obj[member->name.GetString()].GetString();
+				trigger = SDL_GetScancodeFromName(temp);
+			}
 			if (nameOfmember == "forcex")
 				forcex = obj[member->name.GetString()].GetInt();
 			if (nameOfmember == "forcey")
@@ -59,13 +63,12 @@ animation*Game::GetAnimationJson(const Value& obj)
 				{
 					temp = obj[member->name.GetString()][i].GetString();
 					ani_startes->push_back(temp);
-				}
-					
+				}	
 			if (nameOfmember == "default")
-				return new animation(this->renderer);
+				defaultAnimation = obj[member->name.GetString()].GetBool();
 		}
 	}
-	return new animation(damage, trigger, forcey, forcex, name, ani_startes, frames);
+	return new animation(damage, trigger, forcey, forcex, name, ani_startes, frames, defaultAnimation);
 }
 
 Movable* Game::GetMovableJson(const Value& obj)

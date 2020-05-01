@@ -1,8 +1,1 @@
-{
-  "gravity": 1,
-  "width": 1000,
-  "height": 1000,
-  "background": "assets/Broken.jpg",
-  "fullscreen": false,
-  "title": "hello"
-}
+{"fullscreen":false,"gravity":42,"background":"assets\\Broken.jpg","width":1000,"title":"i want you","height":1000}
