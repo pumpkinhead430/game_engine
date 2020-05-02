@@ -65,6 +65,7 @@ int main(int argc, char* args[])
 	const int frameDealy = 1000 / FPS;
 	Uint32 framestart;
 	Uint32 frametime;
+	double duration = 0;
 	//
 	// creating game and objects of the game
 	ifstream ifs("assets/GameData.json");
@@ -74,7 +75,7 @@ int main(int argc, char* args[])
 	game = CreateGame(document);
 	while (game->running())
 	{
-		auto t1 = std::chrono::high_resolution_clock::now();
+		auto startingframe = std::chrono::high_resolution_clock::now();
 		framestart = SDL_GetTicks();
 		game->handleEvents();
 		game->collision();
@@ -85,8 +86,8 @@ int main(int argc, char* args[])
 		{
 			SDL_Delay(frameDealy - frametime);
 		}
-		auto t2 = std::chrono::high_resolution_clock::now();
-		auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
+		auto endingframe = std::chrono::high_resolution_clock::now();
+		duration = std::chrono::duration_cast<std::chrono::nanoseconds>(endingframe - startingframe).count();
 		std::cout << "\n" << (int)((double)1 / (duration * pow(10, -9)));
 	}
 	game->clean();

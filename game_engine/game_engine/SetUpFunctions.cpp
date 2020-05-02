@@ -31,6 +31,7 @@ animation* Game::GetAnimationJson(const Value& obj)
 	int forcex = 0;
 	int forcey = 0;
 	int trigger = 0;
+	double animationTime = 0;
 	string temp = "";
 	string name = "";
 	vector<string>* ani_startes = new vector<string>(0);
@@ -66,9 +67,12 @@ animation* Game::GetAnimationJson(const Value& obj)
 				}	
 			if (nameOfmember == "default")
 				defaultAnimation = obj[member->name.GetString()].GetBool();
+
+			if (nameOfmember == "time")
+				animationTime = obj[member->name.GetString()].GetInt();
 		}
 	}
-	return new animation(damage, trigger, forcey, forcex, name, ani_startes, frames, defaultAnimation);
+	return new animation(damage, trigger, forcey, forcex, name, ani_startes, frames, defaultAnimation, animationTime);
 }
 
 Movable* Game::GetMovableJson(const Value& obj)
