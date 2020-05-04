@@ -12,6 +12,8 @@ void Game::SetUp()
 	document.ParseStream(isw);
 	const Value& movable_objs = document["Movables"];
 	const Value& stationary = document["Stationers"];
+	const Value& win = document["Wins"];
+	const Value& loss = document["Losses"];
 	for (int i = 0; i < stationary.Size(); i++)
 	{
 		this->stationaryobjs->push_back(GetStationaryJson(stationary[i]));
@@ -80,6 +82,7 @@ Movable* Game::GetMovableJson(const Value& obj)
 	int health = 0;
 	int x = 0;
 	int y = 0;
+	int id = 0;
 	vector<animation*> *animations = new vector<animation*>(0);
 	if (obj.IsObject()) 
 	{ //check if object
@@ -101,9 +104,12 @@ Movable* Game::GetMovableJson(const Value& obj)
 
 			if (nameOfmember == "default")
 				return new Movable(this->renderer, 10, 0, 0);
+
+			if (nameOfmember == "id")
+				id = obj[member->name.GetString()].GetInt();
 		}
 	}
-	return new Movable(this->renderer, health, x, y, animations);
+	return new Movable(this->renderer, health, x, y, animations, id);
 }
 
 VisableObj* Game::GetStationaryJson(const Value& obj)
@@ -111,6 +117,7 @@ VisableObj* Game::GetStationaryJson(const Value& obj)
 	int damage = 0;
 	int x = 0;
 	int y = 0;
+	int id = 0;
 	string path = "";
 	vector<string>* curr_ani_start = new vector<string>(0);
 	if (obj.IsObject()) { //check if object
@@ -137,7 +144,52 @@ VisableObj* Game::GetStationaryJson(const Value& obj)
 
 			if (nameOfmember == "default")
 				return new VisableObj(this->renderer,new vector<string>(0), "assets/default.png",0, 0, 0);
+
+			if (nameOfmember == "id")
+				id = obj[member->name.GetString()].GetInt();
 		}
 	}
-	return new VisableObj(this->renderer, curr_ani_start,path, x, y, damage);
+	return new VisableObj(this->renderer, curr_ani_start,path, x, y, damage, id);
+}
+
+Win* Game::GetWinJson(const Value& obj)
+{
+	int startX = 0;
+	int endX = 0; 
+	int startY = 0;
+	int endY = 0;
+	int id = 0;
+	int characterId = 0;
+	string action = "";
+	string type = "";
+	if (obj.IsObject()) { //check if object
+		for (Value::ConstMemberIterator member = obj.MemberBegin(); member != obj.MemberEnd(); ++member)
+		{   //iterate through object
+			string nameOfmember = member->name.GetString();
+			if (nameOfmember == "startX")
+				startX = obj[member->name.GetString()].GetInt();
+
+			if (nameOfmember == "endX")
+				endX = obj[member->name.GetString()].GetInt();
+
+			if (nameOfmember == "startY")
+				startY = obj[member->name.GetString()].GetInt();
+
+			if (nameOfmember == "endY")
+				endY = obj[member->name.GetString()].GetInt();
+
+			if (nameOfmember == "action")
+				action = obj[member->name.GetString()].GetString();
+
+			if (nameOfmember == "type")
+				type = obj[member->name.GetString()].GetString();
+
+			if (nameOfmember == "id")
+				id = obj[member->name.GetString()].GetInt();
+
+			if (nameOfmember == "characterId")
+				characterId = obj[member->name.GetString()].GetInt();
+		}
+	}
+	return new Win(startX, endX, startY, endY, action, id, type, characterId);
 }

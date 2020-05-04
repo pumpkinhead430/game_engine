@@ -12,6 +12,7 @@
 #include "Stationary.h"
 #include "animation.h"
 #include "Movable.h"
+#include "Win.h"
 //#include "CollisionFunctions.h"
 #include "InputHandler.h"
 using namespace std;
@@ -39,11 +40,14 @@ private:
 	animation* GetAnimationJson(const Value& obj);
 	Movable* GetMovableJson(const Value& obj);
 	VisableObj* GetStationaryJson(const Value& obj);
+	Win* GetWinJson(const Value& obj);
 	int gravity;
 	Image* background;
 	SDL_Rect* background_rect = new SDL_Rect();
 	vector<Movable*>* movablechars = new vector<Movable*>(0);//all Movable objects
 	vector<VisableObj*>* stationaryobjs = new vector<VisableObj*>(0);//all Stationary objects
+	vector<VisableObj*>* winObjs = new vector<VisableObj*>(0);//all Win objects
+	vector<VisableObj*>* lossObjs = new vector<VisableObj*>(0);//all Loss objects
 	vector<VisableObj*>* all_objects = new vector<VisableObj*>(0);//all visable objects
 	vector<VisableObj*>* colided = new vector<VisableObj*>(0);// all colided objects
 	vector<Movable*>* dead = new vector<Movable*>(0);

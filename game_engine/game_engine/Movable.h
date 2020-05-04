@@ -16,7 +16,7 @@ private:
 	void ChangeCurrentImage(Image* image);
 	void ChangeAnimation(animation* ani);
 public:
-	Movable(SDL_Renderer* renderer, int health, int x, int y, vector<animation*>* animations);
+	Movable(SDL_Renderer* renderer, int health, int x, int y, vector<animation*>* animations, int id);
 	Movable(SDL_Renderer* renderer, int health, int x, int y);
 	void ActivateAnimation(animation* ani);
 	void TriggerAnimation(int input);
