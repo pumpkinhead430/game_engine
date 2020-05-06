@@ -24,6 +24,16 @@ void Game::SetUp()
 		this->movablechars->push_back(GetMovableJson(movable_objs[i]));
 		this->all_objects->push_back(movablechars->at(i));
 	}
+
+	for (SizeType i = 0; i < win.Size(); i++)
+	{
+		this->winObjs->push_back(GetWinJson( win[i]));
+	}
+
+	for (SizeType i = 0; i < loss.Size(); i++)
+	{
+		this->lossObjs->push_back(GetWinJson(loss[i]));
+	}
 }
 
 animation* Game::GetAnimationJson(const Value& obj)
@@ -141,9 +151,6 @@ VisableObj* Game::GetStationaryJson(const Value& obj)
 				{
 					curr_ani_start->push_back(obj[member->name.GetString()][i].GetString());
 				}
-
-			if (nameOfmember == "default")
-				return new VisableObj(this->renderer,new vector<string>(0), "assets/default.png",0, 0, 0);
 
 			if (nameOfmember == "id")
 				id = obj[member->name.GetString()].GetInt();

@@ -9,7 +9,6 @@
 #include <rapidjson/istreamwrapper.h>
 #include <fstream>
 #include "VisableObj.h"
-#include "Stationary.h"
 #include "animation.h"
 #include "Movable.h"
 #include "Win.h"
@@ -33,6 +32,7 @@ public:
 	bool running();
 	void render();
 	void clean();
+	void checkEnd();
 	SDL_Renderer* GetRenderer();
 
 private:
@@ -46,11 +46,13 @@ private:
 	SDL_Rect* background_rect = new SDL_Rect();
 	vector<Movable*>* movablechars = new vector<Movable*>(0);//all Movable objects
 	vector<VisableObj*>* stationaryobjs = new vector<VisableObj*>(0);//all Stationary objects
-	vector<VisableObj*>* winObjs = new vector<VisableObj*>(0);//all Win objects
-	vector<VisableObj*>* lossObjs = new vector<VisableObj*>(0);//all Loss objects
+	vector<Win*>* winObjs = new vector<Win*>(0);//all Win objects
+	vector<Win*>* lossObjs = new vector<Win*>(0);//all Loss objects
 	vector<VisableObj*>* all_objects = new vector<VisableObj*>(0);//all visable objects
 	vector<VisableObj*>* colided = new vector<VisableObj*>(0);// all colided objects
 	vector<Movable*>* dead = new vector<Movable*>(0);
+	bool win = false;
+	bool loss = false;
 	bool isRunning = false;
 	InputHandler KeyInput;
 	SDL_Window* window;

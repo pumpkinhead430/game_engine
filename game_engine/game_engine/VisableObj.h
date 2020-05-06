@@ -14,7 +14,7 @@ class VisableObj
 
 protected:
 	SDL_Rect *image_info = new SDL_Rect();
-	int id;
+	int id = -1;
 	int current_damage = 0;
 	vector<string> *curr_ani_start = new vector<string>(0);
 	Image *current_image;
@@ -28,6 +28,7 @@ public:
 	virtual string GetType();
 	int GetDamage();
 	void SetDamage(int damage);
+	bool In(SDL_Rect* place);
 	vector<string>* GetAniStarters();
 	Image *GetCurrentImage();
 	SDL_Rect *GetInfo();

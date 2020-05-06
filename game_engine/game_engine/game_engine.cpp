@@ -10,7 +10,6 @@
 #include <chrono>
 #include "Image.h"
 #include "Movable.h"
-#include "Stationary.h"
 #include "Game.h"
 #include <rapidjson/document.h>
 #include <rapidjson/filereadstream.h>
@@ -88,7 +87,7 @@ int main(int argc, char* args[])
 		}
 		auto endingframe = std::chrono::high_resolution_clock::now();
 		duration = std::chrono::duration_cast<std::chrono::nanoseconds>(endingframe - startingframe).count();
-		std::cout << "\n" << (int)((double)1 / (duration * pow(10, -9)));
+		//std::cout << "\n" << (int)((double)1 / (duration * pow(10, -9)));
 	}
 	game->clean();
 	return 0;

@@ -163,7 +163,6 @@
     <ClCompile Include="Movable.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="SetUpFunctions.cpp" />
-    <ClCompile Include="Stationary.cpp" />
     <ClCompile Include="VisableObj.cpp" />
     <ClCompile Include="Win.cpp" />
   </ItemGroup>
@@ -174,7 +173,6 @@
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Movable.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Stationary.h" />
     <ClInclude Include="VisableObj.h" />
     <ClInclude Include="Win.h" />
   </ItemGroup>

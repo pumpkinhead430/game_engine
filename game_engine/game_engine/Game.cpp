@@ -36,7 +36,7 @@ Game::~Game()
 
 void Game::handleEvents()
 {
-	//check if a event happens and inputs it to the iput handler	
+	//check if a event happens and inputs it to the iput handler
 	SDL_Event event;
 	int lastcode = -1;
 	while (SDL_PollEvent(&event))
@@ -141,8 +141,34 @@ bool Game::running() { return isRunning; }
 
 void Game::clean()
 {
+	if (this->win)
+		cout << "You Won";
+	else
+		if (this->loss)
+			cout << "You lost";
 	//finishes game and destroyes window
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
+}
+
+void Game::checkEnd()
+{
+	for (int i = 0; i < this->winObjs->size(); i++ )
+	{
+		if (this->winObjs->at(i)->MetConditon(this->movablechars)) {
+			this->win = true;
+			this->isRunning = false;
+		}
+
+	}
+
+	for (int i = 0; i < this->lossObjs->size(); i++)
+	{
+		if (this->lossObjs->at(i)->MetConditon(this->movablechars)) {
+			this->loss = true;
+			this->isRunning = false;
+		}
+
+	}
 }
