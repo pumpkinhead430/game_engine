@@ -80,6 +80,7 @@ int main(int argc, char* args[])
 		game->collision();
 		game->GetDead();
 		game->render();
+		game->checkEnd();
 		frametime = SDL_GetTicks() - framestart;
 		if (frameDealy > frametime)
 		{

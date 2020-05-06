@@ -1,1 +1,65 @@
-{"Stationers":[{"damage":0,"path":"assets\\default.png","name":"floor","x":0,"y":200,"ani_start":[],"id":3,"type":"Stationery"}],"Losses":[],"Movables":[{"animations":[{"forcey":0,"damage":0,"forcex":0,"default":true,"frames":["assets\/UserR.bmp"],"name":"default","trigger":" ","time":10,"ani_starter":[]},{"forcey":0,"damage":0,"forcex":1,"default":false,"frames":["assets\/UserR.bmp","assets\/UserWalR.bmp","assets\/UserR.bmp"],"name":"walk","trigger":"d","time":100,"ani_starter":[]}],"name":"temp(Movable)","x":10,"health":1000,"y":50,"id":3,"type":"Movable"}],"Wins":[]}
+{
+  "Stationers": [
+    
+    {
+      "damage": 0,
+      "path": "assets\\default.png",
+      "name": "floor",
+      "x": 0,
+      "y": 600,
+      "ani_start": [],
+      "id": 2,
+      "type": "Stationery"
+    }
+  ],
+  "Losses": [
+    {
+      "endY": 900,
+      "endX": 700,
+      "name": "temp(Win)",
+      "action": "place",
+      "startY": 500,
+      "startX": 0,
+      "id": 0,
+      "type": "Loss",
+      "characterId": 3
+    }
+
+  ],
+  "Movables": [
+    {
+      "animations": [
+        {
+          "forcey": 0,
+          "damage": 0,
+          "forcex": 0,
+          "default": true,
+          "frames": [ "assets\/UserR.bmp" ],
+          "name": "default",
+          "trigger": " ",
+          "time": 10,
+          "ani_starter": []
+        },
+        {
+          "forcey": 0,
+          "damage": 0,
+          "forcex": 1,
+          "default": false,
+          "frames": [ "assets\/UserR.bmp", "assets\/UserWalR.bmp", "assets\/UserR.bmp" ],
+          "name": "walk",
+          "trigger": "d",
+          "time": 100,
+          "ani_starter": []
+        }
+      ],
+      "name": "temp(Movable)",
+      "x": 10,
+      "health": 1000,
+      "y": 50,
+      "id": 3,
+      "type": "Movable"
+    }
+  ],
+  "Wins": [
+  ]
+}

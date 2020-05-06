@@ -77,6 +77,7 @@ void Movable::ContinueAnimation()
 		if (this->currani->AniTimeUp()) {
 			this->currani->SetIndex(this->currani->GetIndex() + 1);
 			ChangeCurrentImage(this->currani->GetImage(this->currani->GetIndex()));
+			this->currani->ResetClock();
 		}
 	}
 
