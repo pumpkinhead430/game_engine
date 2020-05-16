@@ -14,11 +14,11 @@
   ],
   "Losses": [
     {
-      "endY": 900,
-      "endX": 700,
+      "endY": 100,
+      "endX": 200,
       "name": "temp(Win)",
       "action": "place",
-      "startY": 500,
+      "startY": 10,
       "startX": 0,
       "id": 0,
       "type": "Loss",
@@ -36,7 +36,7 @@
           "default": true,
           "frames": [ "assets\/UserR.bmp" ],
           "name": "default",
-          "trigger": " ",
+          "trigger": "",
           "time": 10,
           "ani_starter": []
         },

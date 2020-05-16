@@ -141,11 +141,10 @@ bool Game::running() { return isRunning; }
 
 void Game::clean()
 {
-	if (this->win)
-		cout << "You Won";
-	else
-		if (this->loss)
-			cout << "You lost";
+	if (endImage != nullptr) {
+		//SDL_RenderClear(renderer);
+		//SDL_RenderCopy(this->renderer, this->endImage->GetImage(), NULL, this->background_rect);
+	}
 	//finishes game and destroyes window
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
@@ -157,6 +156,7 @@ void Game::checkEnd()
 	for (int i = 0; i < this->winObjs->size(); i++ )
 	{
 		if (this->winObjs->at(i)->MetConditon(this->movablechars)) {
+			//this->endImage = this->winObjs->at(i)->GetImage();
 			this->win = true;
 			this->isRunning = false;
 		}

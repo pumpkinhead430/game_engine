@@ -1,6 +1,6 @@
 #include "Win.h"
 
-Win::Win(int startX, int endX, int startY, int endY, string action, int id, string type, int characterId)
+Win::Win(SDL_Renderer* renderer, int startX, int endX, int startY, int endY, string action, int id, string type, int characterId, string endImagePath)
 {
 	this->action = action;
 	this->id = id;
@@ -10,6 +10,7 @@ Win::Win(int startX, int endX, int startY, int endY, string action, int id, stri
 	this->place->y = startY;
 	this->place->w = abs(endX - startX);
 	this->place->h = abs(endY - startY);
+	this->endImage = new Image(endImagePath, renderer);
 }
 
 bool Win::MetConditon(vector<Movable*>* movableObjects)
@@ -40,5 +41,9 @@ Movable* Win::GetCharacter(vector<Movable*>* movableObjects) {
 			return movableObjects->at(i);
 	}
 	return nullptr;
+}
+
+Image* Win::GetImage() {
+	return this->endImage;
 }
 

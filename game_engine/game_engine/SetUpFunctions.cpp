@@ -169,6 +169,8 @@ Win* Game::GetWinJson(const Value& obj)
 	int characterId = 0;
 	string action = "";
 	string type = "";
+	string endImagePath = "";
+	
 	if (obj.IsObject()) { //check if object
 		for (Value::ConstMemberIterator member = obj.MemberBegin(); member != obj.MemberEnd(); ++member)
 		{   //iterate through object
@@ -196,7 +198,10 @@ Win* Game::GetWinJson(const Value& obj)
 
 			if (nameOfmember == "characterId")
 				characterId = obj[member->name.GetString()].GetInt();
+
+			if (nameOfmember == "screen")
+				endImagePath = obj[member->name.GetString()].GetString();
 		}
 	}
-	return new Win(startX, endX, startY, endY, action, id, type, characterId);
+	return new Win(this->renderer, startX, endX, startY, endY, action, id, type, characterId, endImagePath);
 }

@@ -34,6 +34,7 @@ public:
 	void clean();
 	void checkEnd();
 	SDL_Renderer* GetRenderer();
+	Image* endImage = nullptr;
 
 private:
 	void SetUp();
