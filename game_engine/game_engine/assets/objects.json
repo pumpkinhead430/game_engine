@@ -20,6 +20,7 @@
       "action": "place",
       "startY": 10,
       "startX": 0,
+      "screen": "assets\/default.png",
       "id": 0,
       "type": "Loss",
       "characterId": 3
@@ -60,6 +61,5 @@
       "type": "Movable"
     }
   ],
-  "Wins": [
-  ]
+  "Wins": []
 }

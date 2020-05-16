@@ -1,5 +1,13 @@
 #include "pch.h"
 #include "Game.h"
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
+#include <iostream>
+#include <cstdlib>
+using namespace std;
 
 Game::Game(const char* title, int width, int height, bool fullscreen, string background_path, int gravity)
 {
@@ -142,8 +150,10 @@ bool Game::running() { return isRunning; }
 void Game::clean()
 {
 	if (endImage != nullptr) {
-		//SDL_RenderClear(renderer);
-		//SDL_RenderCopy(this->renderer, this->endImage->GetImage(), NULL, this->background_rect);
+		SDL_RenderClear(renderer);
+		SDL_RenderCopy(this->renderer, this->endImage->GetImage(), NULL, this->background_rect);
+		SDL_RenderPresent(this->renderer);
+		Sleep(1000);
 	}
 	//finishes game and destroyes window
 	SDL_DestroyWindow(window);
@@ -156,7 +166,7 @@ void Game::checkEnd()
 	for (int i = 0; i < this->winObjs->size(); i++ )
 	{
 		if (this->winObjs->at(i)->MetConditon(this->movablechars)) {
-			//this->endImage = this->winObjs->at(i)->GetImage();
+			this->endImage = this->winObjs->at(i)->GetImage();
 			this->win = true;
 			this->isRunning = false;
 		}
@@ -166,6 +176,7 @@ void Game::checkEnd()
 	for (int i = 0; i < this->lossObjs->size(); i++)
 	{
 		if (this->lossObjs->at(i)->MetConditon(this->movablechars)) {
+			this->endImage = this->lossObjs->at(i)->GetImage();
 			this->loss = true;
 			this->isRunning = false;
 		}
