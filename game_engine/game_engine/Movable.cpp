@@ -2,7 +2,7 @@
 #include "Movable.h"
 
 
-Movable::Movable(SDL_Renderer* renderer, int health, int x, int y, vector<animation*>* animations) :VisableObj(renderer, x, y)
+Movable::Movable(SDL_Renderer* renderer, int health, int x, int y, vector<animation*>* animations, int id) :VisableObj(renderer, x, y, id)
 {//setting the trigger which will be in animations in due time and setting default all speed and force
 	this->in_air = false;
 	this->health = health;
@@ -27,7 +27,7 @@ Movable::Movable(SDL_Renderer* renderer, int health, int x, int y, vector<animat
 	this->force->second = 0;
 }
 
-Movable::Movable(SDL_Renderer* renderer, int health, int x, int y) :VisableObj(renderer, x, y)
+Movable::Movable(SDL_Renderer* renderer, int health, int x, int y) : VisableObj(renderer, x, y, 0)
 {//setting the trigger which will be in animations in due time and setting default all speed and force
 	this->in_air = false;
 	this->health = health;
@@ -74,8 +74,11 @@ void Movable::ContinueAnimation()
 	}
 	else
 	{
-		this->currani->SetIndex(this->currani->GetIndex() + 1);
-		ChangeCurrentImage(this->currani->GetImage(this->currani->GetIndex()));
+		if (this->currani->AniTimeUp()) {
+			this->currani->SetIndex(this->currani->GetIndex() + 1);
+			ChangeCurrentImage(this->currani->GetImage(this->currani->GetIndex()));
+			this->currani->ResetClock();
+		}
 	}
 
 }

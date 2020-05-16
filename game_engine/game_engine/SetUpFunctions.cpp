@@ -12,6 +12,8 @@ void Game::SetUp()
 	document.ParseStream(isw);
 	const Value& movable_objs = document["Movables"];
 	const Value& stationary = document["Stationers"];
+	const Value& win = document["Wins"];
+	const Value& loss = document["Losses"];
 	for (int i = 0; i < stationary.Size(); i++)
 	{
 		this->stationaryobjs->push_back(GetStationaryJson(stationary[i]));
@@ -22,6 +24,16 @@ void Game::SetUp()
 		this->movablechars->push_back(GetMovableJson(movable_objs[i]));
 		this->all_objects->push_back(movablechars->at(i));
 	}
+
+	for (SizeType i = 0; i < win.Size(); i++)
+	{
+		this->winObjs->push_back(GetWinJson( win[i]));
+	}
+
+	for (SizeType i = 0; i < loss.Size(); i++)
+	{
+		this->lossObjs->push_back(GetWinJson(loss[i]));
+	}
 }
 
 animation* Game::GetAnimationJson(const Value& obj)
@@ -31,6 +43,7 @@ animation* Game::GetAnimationJson(const Value& obj)
 	int forcex = 0;
 	int forcey = 0;
 	int trigger = 0;
+	double animationTime = 0;
 	string temp = "";
 	string name = "";
 	vector<string>* ani_startes = new vector<string>(0);
@@ -66,9 +79,12 @@ animation* Game::GetAnimationJson(const Value& obj)
 				}	
 			if (nameOfmember == "default")
 				defaultAnimation = obj[member->name.GetString()].GetBool();
+
+			if (nameOfmember == "time")
+				animationTime = obj[member->name.GetString()].GetInt();
 		}
 	}
-	return new animation(damage, trigger, forcey, forcex, name, ani_startes, frames, defaultAnimation);
+	return new animation(damage, trigger, forcey, forcex, name, ani_startes, frames, defaultAnimation, animationTime);
 }
 
 Movable* Game::GetMovableJson(const Value& obj)
@@ -76,6 +92,7 @@ Movable* Game::GetMovableJson(const Value& obj)
 	int health = 0;
 	int x = 0;
 	int y = 0;
+	int id = 0;
 	vector<animation*> *animations = new vector<animation*>(0);
 	if (obj.IsObject()) 
 	{ //check if object
@@ -97,9 +114,12 @@ Movable* Game::GetMovableJson(const Value& obj)
 
 			if (nameOfmember == "default")
 				return new Movable(this->renderer, 10, 0, 0);
+
+			if (nameOfmember == "id")
+				id = obj[member->name.GetString()].GetInt();
 		}
 	}
-	return new Movable(this->renderer, health, x, y, animations);
+	return new Movable(this->renderer, health, x, y, animations, id);
 }
 
 VisableObj* Game::GetStationaryJson(const Value& obj)
@@ -107,6 +127,7 @@ VisableObj* Game::GetStationaryJson(const Value& obj)
 	int damage = 0;
 	int x = 0;
 	int y = 0;
+	int id = 0;
 	string path = "";
 	vector<string>* curr_ani_start = new vector<string>(0);
 	if (obj.IsObject()) { //check if object
@@ -131,9 +152,56 @@ VisableObj* Game::GetStationaryJson(const Value& obj)
 					curr_ani_start->push_back(obj[member->name.GetString()][i].GetString());
 				}
 
-			if (nameOfmember == "default")
-				return new VisableObj(this->renderer,new vector<string>(0), "assets/default.png",0, 0, 0);
+			if (nameOfmember == "id")
+				id = obj[member->name.GetString()].GetInt();
 		}
 	}
-	return new VisableObj(this->renderer, curr_ani_start,path, x, y, damage);
+	return new VisableObj(this->renderer, curr_ani_start,path, x, y, damage, id);
+}
+
+Win* Game::GetWinJson(const Value& obj)
+{
+	int startX = 0;
+	int endX = 0; 
+	int startY = 0;
+	int endY = 0;
+	int id = 0;
+	int characterId = 0;
+	string action = "";
+	string type = "";
+	string endImagePath = "";
+	
+	if (obj.IsObject()) { //check if object
+		for (Value::ConstMemberIterator member = obj.MemberBegin(); member != obj.MemberEnd(); ++member)
+		{   //iterate through object
+			string nameOfmember = member->name.GetString();
+			if (nameOfmember == "startX")
+				startX = obj[member->name.GetString()].GetInt();
+
+			if (nameOfmember == "endX")
+				endX = obj[member->name.GetString()].GetInt();
+
+			if (nameOfmember == "startY")
+				startY = obj[member->name.GetString()].GetInt();
+
+			if (nameOfmember == "endY")
+				endY = obj[member->name.GetString()].GetInt();
+
+			if (nameOfmember == "action")
+				action = obj[member->name.GetString()].GetString();
+
+			if (nameOfmember == "type")
+				type = obj[member->name.GetString()].GetString();
+
+			if (nameOfmember == "id")
+				id = obj[member->name.GetString()].GetInt();
+
+			if (nameOfmember == "characterId")
+				characterId = obj[member->name.GetString()].GetInt();
+
+			if (nameOfmember == "screen")
+				endImagePath = obj[member->name.GetString()].GetString();
+		}
+	}
+	return new Win(this->renderer, startX, endX, startY, endY, action, id, type, characterId, endImagePath);
 }

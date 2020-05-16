@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "VisableObj.h"
-VisableObj::VisableObj(SDL_Renderer *renderer, vector<string>* curr_ani_start, string path, int x, int y, int damage)
+VisableObj::VisableObj(SDL_Renderer *renderer, vector<string>* curr_ani_start, string path, int x, int y, int damage, int id)
 {
 	this->image_info->x = x;
 	this->image_info->y = y;
@@ -9,18 +9,27 @@ VisableObj::VisableObj(SDL_Renderer *renderer, vector<string>* curr_ani_start, s
 	this->image_info->h = current_image->height;
 	this->image_info->w = current_image->width;
 	this->current_damage = damage;
-	this->id = ID;
-	ID++;
+	this->id = id;
 }
 
-VisableObj::VisableObj(SDL_Renderer* renderer, int x, int y)
+VisableObj::VisableObj(SDL_Renderer* renderer, int x, int y, int id)
 {
 	this->current_image = nullptr;
 	this->image_info->x = x;
 	this->image_info->y = y;
-	this->id = ID;
-	ID++;
+	this->id = id;
 }
+
+
+bool VisableObj::In(SDL_Rect* place)
+{
+	if (SDL_HasIntersection(place, image_info))
+		return true;
+	return false;
+}
+
+
+
 vector<string>* VisableObj::GetAniStarters(){ return this->curr_ani_start; }
 Image * VisableObj::GetCurrentImage() { return this->current_image; }
 int VisableObj::GetId() { return this->id; }
