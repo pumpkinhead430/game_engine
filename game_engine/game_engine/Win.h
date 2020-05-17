@@ -19,7 +19,7 @@ private:
 
 public:
 	Win(SDL_Renderer* renderer, int startX, int endX, int startY, int endY, string action, int id, string type, int characterId, string endImagePath);
-	bool MetConditon(vector<Movable*>* all_objects);
+	bool MetConditon(vector<Movable*>* all_objects, vector<Movable*>* dead);
 	Movable* GetCharacter(vector<Movable*>* movableObjects);
 	Image* GetImage();
 

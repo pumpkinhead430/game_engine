@@ -13,7 +13,7 @@ Win::Win(SDL_Renderer* renderer, int startX, int endX, int startY, int endY, str
 	this->endImage = new Image(endImagePath, renderer);
 }
 
-bool Win::MetConditon(vector<Movable*>* movableObjects)
+bool Win::MetConditon(vector<Movable*>* movableObjects, vector<Movable*>* dead)
 {
 	Movable* movable = GetCharacter(movableObjects);
 	if (movable != nullptr) {
@@ -23,13 +23,16 @@ bool Win::MetConditon(vector<Movable*>* movableObjects)
 			}
 			return false;
 		}
-		else {
+	}
+	movable = GetCharacter(dead);
+		if (movable != nullptr) {
 			if (movable->GetHealth() <= 0) {
 				return true;
 			}
+
 			return false;
 		}
-	}
+	return false;
 
 
 }

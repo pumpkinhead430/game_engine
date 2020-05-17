@@ -31,8 +31,8 @@ Game::Game(const char* title, int width, int height, bool fullscreen, string bac
 		this->background = new Image(background_path, this->renderer);
 		this->background_rect->x = 0;
 		this->background_rect->y = 0;
-		this->background_rect->h = this->background->height;
-		this->background_rect->w = this->background->width;
+		this->background_rect->h = height;
+		this->background_rect->w = width;
 		isRunning = true;
 	}
 	this->SetUp();
@@ -165,7 +165,7 @@ void Game::checkEnd()
 {
 	for (int i = 0; i < this->winObjs->size(); i++ )
 	{
-		if (this->winObjs->at(i)->MetConditon(this->movablechars)) {
+		if (this->winObjs->at(i)->MetConditon(this->movablechars, this->dead)) {
 			this->endImage = this->winObjs->at(i)->GetImage();
 			this->win = true;
 			this->isRunning = false;
@@ -175,7 +175,7 @@ void Game::checkEnd()
 
 	for (int i = 0; i < this->lossObjs->size(); i++)
 	{
-		if (this->lossObjs->at(i)->MetConditon(this->movablechars)) {
+		if (this->lossObjs->at(i)->MetConditon(this->movablechars, this->dead)) {
 			this->endImage = this->lossObjs->at(i)->GetImage();
 			this->loss = true;
 			this->isRunning = false;
